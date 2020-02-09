@@ -1,0 +1,83 @@
+.pt_plus_info_box .infobox-overlay-color {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+	width:100%;
+	height:100%;
+    background-color: transparent;
+    transition: all 0.3s linear;
+	z-index:1;
+}
+.pt_plus_info_box .service-flipbox-content{
+    position: relative;
+    z-index: 11;
+}
+
+.pt_plus_info_box .info-box-bg-box > div:first-child {
+    position: relative;
+    z-index: 11;
+}
+
+.service-flipbox-back, .service-flipbox-front {
+    background-size: cover !important;
+	    background-position: center !important;
+}
+.pt_plus_info_box .info-box-inner .service-flipbox-front{
+   background:#fff;
+}
+/*--------style 1 Start----------*/
+.pt_plus_info_box.info-box-style_1 .service-img-border {
+    border-right: 1px solid;
+    padding-right: 10px;
+}
+.pt_plus_info_box.info-box-style_1 .service-img {
+    max-width: 150px;
+}
+/*--------style 1 End----------*/
+/*--------style 3 Start----------*/
+.pt_plus_info_box.info-box-style_3 .service-center .service-title {
+margin-bottom: 5px;
+    margin-top: 5px;
+}
+.pt_plus_info_box.info-box-style_3 .text-center .ts-icon-img img {
+    margin: 0 auto;
+}
+.pt_plus_info_box.info-box-style_3 .ts-icon-img img {
+    max-width: 100%;
+    width: auto;
+}
+.pt_plus_info_box.info-box-style_3 .text-right .ts-icon-img img {
+    float: right;
+    display: block;
+    position: relative;
+    margin-bottom: 15px;
+}
+.pt_plus_info_box.info-box-style_3.tilt-index:hover {
+    z-index: 11;
+    position: relative;
+}
+/*--------style 3 End----------*/
+
+/*--------style 5 Start----------*/
+.info-box-style_5 .info-box-bg-box {
+    overflow: visible;
+}
+
+.pt_plus_info_box.info-box-style_5 {
+    overflow: visible !important;
+}
+.pt_plus_info_box.info-box-style_5 .service-desc {
+    padding: 15px;
+}
+.pt_plus_info_box.info-box-style_5 .service-img {
+    padding: 15px;
+}
+.pt_plus_info_box.info-box-style_5 .service-icon{
+	padding:0px;
+}
+.pt_plus_info_box.info-box-style_5 .service-title {
+    padding: 15px;
+}
+/*--------style 5 End----------*/

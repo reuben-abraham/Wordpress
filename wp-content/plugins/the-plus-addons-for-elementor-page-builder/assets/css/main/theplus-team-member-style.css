@@ -1,0 +1,154 @@
+.team-member-list {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.team-member-list .grid-item {
+    padding: 15px;
+}
+.team-profile span.thumb-wrap {
+    position: relative;
+    display: block;
+}
+.team-member-list.team-style-1 .team-list-content {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.team-member-list.team-style-1 .post-content-image {
+    position: relative;
+    display: block;
+    overflow: hidden;
+	-webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.team-member-list .team-list-content{
+	-webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.team-member-list.team-style-1 .team-social-content {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+}
+.team-member-list .team-social-content .team-social-list{
+	padding:0;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+	list-style:none;
+}
+.team-member-list .team-social-content .team-social-list li {
+    display: inline-block;
+    margin: 2px 5px;
+    vertical-align: middle;
+    position: relative;
+    text-align: center;	
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li a{
+	width: 40px;
+    height: 40px;
+    font-size: 17px;
+	color:#313131;
+	background: transparent;
+    line-height: 40px;
+    border-radius: 50%;
+	display: block;
+	-webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li.team-profile-link a:hover{
+	background: #222222;
+	color:#fff;
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li.fb-link a:hover{
+	background: #3b5998;
+	color:#fff;
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li.twitter-link a:hover{
+	background: #1da1f2;
+	color:#fff;
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li.instagram-link a:hover{
+	background: #cd486b;
+	color:#fff;
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li.gplus-link a:hover{
+	background: #dd4b39;
+	color:#fff;
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li.linkedin-link a:hover{
+	background: #0077b5;
+	color:#fff;
+}
+.team-member-list.team-style-1 .team-list-content .team-social-content {
+    opacity: 0;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    visibility: hidden;
+	transform: translateY(50%);
+}
+.team-member-list.team-style-1 .team-list-content:hover .team-social-content {
+    opacity: 1;
+    visibility: visible;
+	transform: translateY(0%);
+}
+.team-member-list.team-style-1 .team-social-content .team-social-list li:hover a {
+    transform: translateY(-3px);
+}
+.team-member-list .team-profile img{
+	-webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border-radius: 6px;
+	width:100%;
+}
+.team-member-list .post-content-bottom {
+    position: relative;
+    display: block;
+	padding: 15px 10px;
+}
+.team-member-list .post-title,.team-member-list .post-title a{
+    font-size: 18px;
+    line-height: 24px;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+	color:#222;
+	-webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.team-member-list .member-designation {
+    position: relative;
+    display: block;
+    margin-top: 8px;
+    font-size: 15px;
+    line-height: 20px;
+    color: #888888;
+    font-weight: 300;
+	-webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
