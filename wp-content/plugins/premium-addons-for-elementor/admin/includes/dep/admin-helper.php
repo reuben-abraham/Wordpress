@@ -214,7 +214,9 @@ class Admin_Helper {
      */
     protected static function insert_post( $post ) {
         $current_user = wp_get_current_user();
-
+        
+        $post_meta = get_post_meta( $post->ID );
+        
         $duplicated_post_args = [
             'post_status'    => 'draft',
             'post_type'      => $post->post_type,
@@ -228,8 +230,21 @@ class Admin_Helper {
             'to_ping'        => $post->to_ping,
             'post_author'    => $current_user->ID,
             'post_title'     => sprintf( __( 'Duplicated: %s - [#%d]', 'premium-addons-for-elementor' ), $post->post_title,
-                $post->ID ),
+                $post->ID )
         ];
+        
+        if( isset( $post_meta['_elementor_edit_mode'][0] ) ) {
+            
+            $data = [
+                'meta_input'  => array(
+                    '_elementor_edit_mode'     => $post_meta['_elementor_edit_mode'][0],
+                    '_elementor_template_type' => $post_meta['_elementor_template_type'][0],
+                )
+            ];
+            
+            $duplicated_post_args = array_merge( $duplicated_post_args, $data );
+            
+        }
 
         return wp_insert_post( $duplicated_post_args );
     }

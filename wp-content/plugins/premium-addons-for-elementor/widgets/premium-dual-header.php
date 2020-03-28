@@ -96,7 +96,7 @@ class Premium_Dual_Header extends Widget_Base {
                     'h6'    => 'H6',
                     'p'     => 'p',
                     'span'  => 'span',
-                    ],
+                ],
                 'label_block'   =>  true,
             ]
         );

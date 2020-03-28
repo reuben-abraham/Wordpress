@@ -75,13 +75,13 @@ class Premium_Image_Scroll extends Widget_Base {
 		$this->add_control('image',
 			[
                 'label'         => __('Image', 'premium-addons-for-elementor'),
-					'type'          => Controls_Manager::MEDIA,
-					'dynamic'       => [ 'active' => true ],
-					'default'       => [
-						'url'	=> Utils::get_placeholder_image_src(),
-						],
-					'description'   => __('Choose the scroll image', 'premium-addons-for-elementor' ),
-					'label_block'   => true
+                'type'          => Controls_Manager::MEDIA,
+                'dynamic'       => [ 'active' => true ],
+                'default'       => [
+                    'url'	=> Utils::get_placeholder_image_src(),
+                ],
+                'description'   => __('Choose the scroll image', 'premium-addons-for-elementor' ),
+                'label_block'   => true
 			]
         );
         

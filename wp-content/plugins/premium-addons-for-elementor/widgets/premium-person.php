@@ -26,7 +26,7 @@ class Premium_Person extends Widget_Base {
     }
 
     public function get_title() {
-		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __('Persons', 'premium-addons-for-elementor') );
+		return sprintf( '%1$s %2$s', Helper_Functions::get_prefix(), __('Team Members', 'premium-addons-for-elementor') );
 	}
 
     public function get_icon() {
@@ -55,7 +55,7 @@ class Premium_Person extends Widget_Base {
 		return 'https://premiumaddons.com/support/';
 	}
 
-    // Adding the controls fields for the premium person
+    // Adding the controls fields for the premium team members
     // This will controls the animation, colors and background, dimensions etc
     protected function _register_controls() {
         
@@ -67,7 +67,7 @@ class Premium_Person extends Widget_Base {
 		
 		$this->add_control('multiple',
             [
-                'label'         => __( 'Multiple Persons', 'premium-addons-for-elementor' ),
+                'label'         => __( 'Multiple Member', 'premium-addons-for-elementor' ),
                 'description'   => __('Enable this option if you need to add multiple persons', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SWITCHER,
             ]
@@ -83,8 +83,7 @@ class Premium_Person extends Widget_Base {
                     'style2'        => __('Style 2', 'premium-addons-for-elementor')
                 ],
                 'label_block'   =>  true,
-                'render_type'   => 'template',
-                'prefix_class'  => 'premium-person-widget-'
+                'render_type'   => 'template'
             ]
         );
                 
@@ -206,6 +205,9 @@ class Premium_Person extends Widget_Base {
                     'h4'    => 'H4',
                     'h5'    => 'H5',
                     'h6'    => 'H6',
+                    'div'   => 'div',
+                    'span'  => 'span',
+                    'p'     => 'p',
                 ],
                 'label_block'   =>  true,
             ]
@@ -222,7 +224,10 @@ class Premium_Person extends Widget_Base {
                     'h3' => 'H3',
                     'h4' => 'H4',
                     'h5' => 'H5',
-                    'h6' => 'H6'
+                    'h6' => 'H6',
+                    'div'   => 'div',
+                    'span'  => 'span',
+                    'p'     => 'p',
                 ],
                 'label_block'   =>  true,
             ]
@@ -230,7 +235,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_responsive_control('persons_per_row',
             [
-                'label'             => __('Persons/Row', 'premium-addons-pro'),
+                'label'             => __('Members/Row', 'premium-addons-pro'),
                 'type'              => Controls_Manager::SELECT,
                 'options'           => [
                     '100%'  => __('1 Column', 'premium-addons-pro'),
@@ -287,7 +292,7 @@ class Premium_Person extends Widget_Base {
         
         $this->start_controls_section('premium_person_settings',
             [
-                'label'         => __('Single Person Settings', 'premium-addons-for-elementor'),
+                'label'         => __('Single Member Settings', 'premium-addons-for-elementor'),
                 'condition'     => [
                     'multiple!'   => 'yes'
                 ]
@@ -399,7 +404,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('premium_person_youtube',
             [
-                'label'         => __('Youtube', 'premium-addons-for-elementor'),
+                'label'         => __('YouTube', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::TEXT,
                 'dynamic'       => [ 'active' => true ],
                 'label_block'   => true,
@@ -474,7 +479,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('premium_person_whatsapp',
             [
-                'label'         => __('Whatsapp', 'premium-addons-for-elementor'),
+                'label'         => __('WhatsApp', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::TEXT,
                 'dynamic'       => [ 'active' => true ],
                 'label_block'   => true,
@@ -514,7 +519,7 @@ class Premium_Person extends Widget_Base {
         
         $this->start_controls_section('multiple_settings',
             [
-                'label'         => __('Multiple Persons Settings', 'premium-addons-for-elementor'),
+                'label'         => __('Multiple Members Settings', 'premium-addons-for-elementor'),
                 'condition'     => [
                     'multiple'   => 'yes'
                 ]
@@ -627,7 +632,7 @@ class Premium_Person extends Widget_Base {
         
         $repeater->add_control('multiple_youtube',
             [
-                'label'         => __('Youtube', 'premium-addons-for-elementor'),
+                'label'         => __('YouTube', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::TEXT,
                 'dynamic'       => [ 'active' => true ],
                 'label_block'   => true,
@@ -682,7 +687,7 @@ class Premium_Person extends Widget_Base {
                 'default'       => '#',
                 'label_block'   => true,
                 'condition'     => [
-                    'premium_person_social_enable'  => 'yes'
+                    'multiple_social_enable'  => 'yes'
                 ]
             ]
         );
@@ -702,7 +707,7 @@ class Premium_Person extends Widget_Base {
         
         $repeater->add_control('multiple_whatsapp',
             [
-                'label'         => __('Whatsapp', 'premium-addons-for-elementor'),
+                'label'         => __('WhatsApp', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::TEXT,
                 'dynamic'       => [ 'active' => true ],
                 'label_block'   => true,
@@ -739,7 +744,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('multiple_persons',
            [
-               'label'          => __( 'Persons', 'premium-addons-for-elementor' ),
+               'label'          => __( 'Members', 'premium-addons-for-elementor' ),
                'type'           => Controls_Manager::REPEATER,
                'default'       => [
                     [
@@ -815,20 +820,18 @@ class Premium_Person extends Widget_Base {
         
         $this->end_controls_section();
         
-        /*Start Image Style Section*/
         $this->start_controls_section('premium_person_image_style', 
-                [
-                    'label'         => __('Image', 'premium-addons-for-elementor'),
-                    'tab'           => Controls_Manager::TAB_STYLE,
-                ]
-                );
+            [
+                'label'         => __('Image', 'premium-addons-for-elementor'),
+                'tab'           => Controls_Manager::TAB_STYLE,
+            ]
+        );
         
-        /*Image CSS Filter */
         $this->add_group_control(
 			Group_Control_Css_Filter::get_type(),
 			[
 				'name' => 'css_filters',
-				'selector' => '{{WRAPPER}} .premium-person-image-container img',
+				'selector' => '{{WRAPPER}} .premium-person-container img',
 			]
 		);
         
@@ -837,7 +840,7 @@ class Premium_Person extends Widget_Base {
 			[
 				'name'      => 'hover_css_filters',
                 'label'     => __('Hover CSS Filters', 'premium-addons-for-elementor'),
-				'selector'  => '{{WRAPPER}} .premium-person-image-container:hover img'
+				'selector'  => '{{WRAPPER}} .premium-person-container:hover img'
 			]
 		);
         
@@ -875,42 +878,37 @@ class Premium_Person extends Widget_Base {
 			]
 		);
         
-        /*End Image Style Section*/
         $this->end_controls_section();
         
-        /*Start Name Style Section*/
-         $this->start_controls_section('premium_person_name_style', 
-                [
-                    'label'         => __('Name', 'premium-addons-for-elementor'),
-                    'tab'           => Controls_Manager::TAB_STYLE,
-                ]
-                );
-         
-         
-        /*Name Color*/
+        $this->start_controls_section('premium_person_name_style', 
+            [
+                'label'         => __('Name', 'premium-addons-for-elementor'),
+                'tab'           => Controls_Manager::TAB_STYLE,
+            ]
+        );
+        
         $this->add_control('premium_person_name_color',
-                [
-                    'label'         => __('Color', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::COLOR,
-                    'scheme'        => [
-                        'type'  => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_1,
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-person-name'  => 'color: {{VALUE}};',
-                        ]
-                    ]
-                );
-         
-        /*Name Typography*/ 
-        $this->add_group_control(
-                Group_Control_Typography::get_type(),
-                [
-                    'name'          => 'name_typography',
-                    'scheme'        => Scheme_Typography::TYPOGRAPHY_1,
-                    'selector'      => '{{WRAPPER}} .premium-person-name',
+            [
+                'label'         => __('Color', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::COLOR,
+                'scheme'        => [
+                    'type'  => Scheme_Color::get_type(),
+                    'value' => Scheme_Color::COLOR_1,
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-person-name'  => 'color: {{VALUE}};',
                 ]
-                );
+            ]
+        );
+        
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name'          => 'name_typography',
+                'scheme'        => Scheme_Typography::TYPOGRAPHY_1,
+                'selector'      => '{{WRAPPER}} .premium-person-name',
+            ]
+        );
         
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
@@ -920,41 +918,48 @@ class Premium_Person extends Widget_Base {
             ]
         );
         
-        /*End Name Style Section*/
+        $this->add_responsive_control('name_padding',
+            [
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => ['px', 'em', '%'],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-person-name' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+                ]
+            ]
+        );
+        
         $this->end_controls_section();
         
-        /*Start Title Style Section*/
         $this->start_controls_section('premium_person_title_style', 
-                [
-                    'label'         => __('Job Title', 'premium-addons-for-elementor'),
-                    'tab'           => Controls_Manager::TAB_STYLE,
-                ]
-                );
+            [
+                'label'         => __('Job Title', 'premium-addons-for-elementor'),
+                'tab'           => Controls_Manager::TAB_STYLE,
+            ]
+        );
         
-        /*Title Color*/
         $this->add_control('premium_person_title_color',
-                [
-                    'label'         => __('Color', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::COLOR,
-                    'scheme'        => [
-                        'type'  => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_2,
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-person-title'  => 'color: {{VALUE}};',
-                        ]
-                    ]
-                );
-        
-        /*Title Typography*/
-        $this->add_group_control(
-                Group_Control_Typography::get_type(),
-                [
-                    'name'          => 'title_typography',
-                    'scheme'        => Scheme_Typography::TYPOGRAPHY_1,
-                    'selector'      => '{{WRAPPER}} .premium-person-title',
+            [
+                'label'         => __('Color', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::COLOR,
+                'scheme'        => [
+                    'type'  => Scheme_Color::get_type(),
+                    'value' => Scheme_Color::COLOR_2,
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-person-title'  => 'color: {{VALUE}};',
                 ]
-                );
+            ]
+        );
+        
+        $this->add_group_control(
+            Group_Control_Typography::get_type(),
+            [
+                'name'          => 'title_typography',
+                'scheme'        => Scheme_Typography::TYPOGRAPHY_1,
+                'selector'      => '{{WRAPPER}} .premium-person-title',
+            ]
+        );
         
         $this->add_group_control(
             Group_Control_Text_Shadow::get_type(),
@@ -964,33 +969,40 @@ class Premium_Person extends Widget_Base {
             ]
         );
         
-        /*End Title Style Section*/
+        $this->add_responsive_control('title_padding',
+            [
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => ['px', 'em', '%'],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-person-title' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+                ]
+            ]
+        );
+        
         $this->end_controls_section();
         
-        /*Start Description Style Section*/
         $this->start_controls_section('premium_person_description_style', 
-                [
-                    'label'         => __('Description', 'premium-addons-for-elementor'),
-                    'tab'           => Controls_Manager::TAB_STYLE,
-                ]
-                );
+            [
+                'label'         => __('Description', 'premium-addons-for-elementor'),
+                'tab'           => Controls_Manager::TAB_STYLE,
+            ]
+        );
         
-        /*Title Color*/
         $this->add_control('premium_person_description_color',
-                [
-                    'label'         => __('Color', 'premium-addons-for-elementor'),
-                    'type'          => Controls_Manager::COLOR,
-                    'scheme'        => [
-                        'type'  => Scheme_Color::get_type(),
-                        'value' => Scheme_Color::COLOR_3,
-                    ],
-                    'selectors'     => [
-                        '{{WRAPPER}} .premium-person-content'  => 'color: {{VALUE}};',
-                        ]
-                    ]
-                );
+            [
+                'label'         => __('Color', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::COLOR,
+                'scheme'        => [
+                    'type'  => Scheme_Color::get_type(),
+                    'value' => Scheme_Color::COLOR_3,
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-person-content'  => 'color: {{VALUE}};',
+                ]
+            ]
+        );
         
-        /*Title Typography*/
         $this->add_group_control(
             Group_Control_Typography::get_type(),
             [
@@ -1008,10 +1020,19 @@ class Premium_Person extends Widget_Base {
             ]
         );
         
-        /*End Description Style Section*/
+        $this->add_responsive_control('description_padding',
+            [
+                'label'         => __('Padding', 'premium-addons-for-elementor'),
+                'type'          => Controls_Manager::DIMENSIONS,
+                'size_units'    => ['px', 'em', '%'],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-person-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+                ]
+            ]
+        );
+        
         $this->end_controls_section();
         
-        /*Start Social Icon Style Section*/
         $this->start_controls_section('premium_person_social_icon_style', 
             [
                 'label'         => __('Social Icons', 'premium-addons-for-elementor'),
@@ -1145,7 +1166,7 @@ class Premium_Person extends Widget_Base {
         
         $this->add_control('premium_person_content_background_color',
             [
-                'label'         => __('Color', 'premium-addons-for-elementor'),
+                'label'         => __('Background Color', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::COLOR,
                 'default'       => 'rgba(245,245,245,0.97)',
                 'selectors'     => [
@@ -1232,6 +1253,20 @@ class Premium_Person extends Widget_Base {
                 ]
             ]
         );
+        
+        $this->add_control('arrow_hover_color',
+            [
+                'label'         => __('Hover Color', 'premium-addons-pro'),
+                'type'          => Controls_Manager::COLOR,
+                'scheme'        => [
+                    'type'  => Scheme_Color::get_type(),
+                    'value' => Scheme_Color::COLOR_1,
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-persons-container .slick-arrow:hover' => 'color: {{VALUE}};',
+                ]
+            ]
+        );
 
         $this->add_responsive_control('arrow_size',
             [
@@ -1254,6 +1289,20 @@ class Premium_Person extends Widget_Base {
                 ],
                 'selectors'     => [
                     '{{WRAPPER}} .premium-persons-container .slick-arrow' => 'background-color: {{VALUE}};',
+                ]
+            ]
+        );
+        
+        $this->add_control('arrow_hover_background',
+            [
+                'label'         => __('Background Hover Color', 'premium-addons-pro'),
+                'type'          => Controls_Manager::COLOR,
+                'scheme'        => [
+                    'type'  => Scheme_Color::get_type(),
+                    'value' => Scheme_Color::COLOR_2,
+                ],
+                'selectors'     => [
+                    '{{WRAPPER}} .premium-persons-container .slick-arrow:hover' => 'background-color: {{VALUE}};',
                 ]
             ]
         );
@@ -1296,16 +1345,6 @@ class Premium_Person extends Widget_Base {
         
         $settings = $this->get_settings_for_display();
         
-        $this->add_inline_editing_attributes('premium_person_name');
-        
-        $this->add_inline_editing_attributes('premium_person_title');
-        
-        $this->add_inline_editing_attributes('premium_person_content','advanced');
-        
-        $name_heading = $settings['premium_person_name_heading'];
-        
-        $title_heading = $settings['premium_person_title_heading'];
-        
         $image_effect = $settings['premium_person_hover_image_effect'];
 
         $image_html = '';
@@ -1317,12 +1356,15 @@ class Premium_Person extends Widget_Base {
 			$image_html = Group_Control_Image_Size::get_attachment_image_html( $settings, 'thumbnail', 'premium_person_image' );
 		}
         
-        $this->add_render_attribute( 'persons_container', 'class', 'premium-persons-container' );
+        $this->add_render_attribute( 'persons_container', 'class', [
+                'premium-persons-container',
+                'premium-person-' . $settings['premium_person_style']
+            ]
+        );
         
         $this->add_render_attribute( 'person_container', 'class', [
             'premium-person-container',
-            'premium-person-' . $image_effect . '-effect',
-            'premium-person-' . $settings['premium_person_style']  
+            'premium-person-' . $image_effect . '-effect'
         ]);
         
         if( 'yes' === $settings['multiple'] ) {
@@ -1363,46 +1405,18 @@ class Premium_Person extends Widget_Base {
                         <?php echo $image_html; ?>
                     </div>
                     <?php if( 'style2' === $settings['premium_person_style'] && 'yes' === $settings['premium_person_social_enable'] ) : ?>
-                    <div class="premium-person-social">
-                        <?php $this->get_social_icons(); ?>
-                    </div>
+                        <div class="premium-person-social">
+                            <?php $this->get_social_icons(); ?>
+                        </div>
                     <?php endif; ?>
                 </div>
                 <div class="premium-person-info">
-                    <div class="premium-person-info-container">
-                        <?php if( ! empty( $settings['premium_person_name'] ) ) : ?>
-                            <<?php echo $name_heading; ?> class="premium-person-name"><span <?php echo $this->get_render_attribute_string('premium_person_name'); ?>><?php echo $settings['premium_person_name']; ?></span></<?php echo $name_heading; ?>>
-                        <?php endif;
-                        
-                        if( ! empty( $settings['premium_person_title'] ) ) : ?>
-                            <<?php echo $title_heading; ?> class="premium-person-title"><span <?php echo $this->get_render_attribute_string('premium_person_title'); ?>><?php echo $settings['premium_person_title']; ?></span></<?php echo $title_heading; ?>>
-                        <?php endif; 
-                        
-                        if( ! empty( $settings['premium_person_content'] ) ) : ?>
-                            <div class="premium-person-content">
-                                <div <?php echo $this->get_render_attribute_string('premium_person_content'); ?>>
-                                    <?php echo $settings['premium_person_content']; ?>
-                                </div>
-                            </div>
-                        <?php endif;
-                        
-                        if( 'style1' === $settings['premium_person_style'] && 'yes' === $settings['premium_person_social_enable'] ) :
-                            $this->get_social_icons();
-                        endif; ?>
-                    </div>
+                    <?php $this->render_person_info(); ?>
                 </div>
             </div>
             <?php else :
                 foreach( $persons as $index => $person ) {
                 
-                    $name_setting_key = $this->get_repeater_setting_key( 'multiple_name', 'multiple_persons', $index );
-                    $title_setting_key = $this->get_repeater_setting_key( 'multiple_title', 'multiple_persons', $index );
-                    $desc_setting_key = $this->get_repeater_setting_key( 'multiple_description', 'multiple_persons', $index );
-                    
-                    $this->add_inline_editing_attributes( $name_setting_key );
-                    $this->add_inline_editing_attributes( $title_setting_key );
-                    $this->add_inline_editing_attributes( $desc_setting_key, 'advanced' );
-                    
                     $person_image_html = '';
                     if ( ! empty( $person['multiple_image']['url'] ) ) {
                         $this->add_render_attribute( 'image', 'src', $person['multiple_image']['url'] );
@@ -1418,33 +1432,13 @@ class Premium_Person extends Widget_Base {
                                 <?php echo $person_image_html; ?>
                             </div>
                             <?php if( 'style2' === $settings['premium_person_style'] && 'yes' === $person['multiple_social_enable'] ) : ?>
-                            <div class="premium-person-social">
-                                <?php $this->get_social_icons( $person ); ?>
-                            </div>
+                                <div class="premium-person-social">
+                                    <?php $this->get_social_icons( $person ); ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                         <div class="premium-person-info">
-                            <div class="premium-person-info-container">
-                                <?php if( ! empty( $person['multiple_name'] ) ) : ?>
-                                    <<?php echo $name_heading; ?> class="premium-person-name"><span <?php echo $this->get_render_attribute_string($name_setting_key); ?>><?php echo $person['multiple_name']; ?></span></<?php echo $name_heading; ?>>
-                                <?php endif;
-                                
-                                if( ! empty( $person['multiple_title'] ) ) : ?>
-                                    <<?php echo $title_heading; ?> class="premium-person-title"><span <?php echo $this->get_render_attribute_string($title_setting_key); ?>><?php echo $person['multiple_title']; ?></span></<?php echo $title_heading; ?>>
-                                <?php endif;
-                                
-                                if( ! empty( $person['multiple_description'] ) ) : ?>
-                                    <div class="premium-person-content">
-                                        <div <?php echo $this->get_render_attribute_string($desc_setting_key); ?>>
-                                            <?php echo $person['multiple_description']; ?>
-                                        </div>
-                                    </div>
-                                <?php endif;
-                                
-                                if( 'style1' === $settings['premium_person_style'] && 'yes' === $person['multiple_social_enable'] ) :
-                                    $this->get_social_icons( $person );
-                                endif; ?>
-                            </div>
+                            <?php $this->render_person_info( $person, $index ); ?>
                         </div>
                     </div>
                 <?php }
@@ -1461,11 +1455,12 @@ class Premium_Person extends Widget_Base {
      * @since 3.8.4
      * @access protected
      * 
+     * @param $person object current person
      */
     private function get_social_icons( $person = '' ) {
         
         $settings = $this->get_settings_for_display();
-            
+        
         if( '' === $person ) {
             $personSettings = $settings;
             $socialIcons = [
@@ -1559,13 +1554,133 @@ class Premium_Person extends Widget_Base {
         <?php
     }
     
+    /*
+     * Render Person Info
+     * 
+     * 
+     * @since 3.12.0
+     * @access protected
+     * 
+     * @param $person object current person
+     * @param $index integer  current person index
+     */
+    protected function render_person_info( $person = '', $index = '' ) {
+        
+        $settings = $this->get_settings_for_display();
+        
+        $this->add_inline_editing_attributes('premium_person_name', 'advanced');
+        
+        $this->add_inline_editing_attributes('premium_person_title', 'advanced');
+        
+        $this->add_inline_editing_attributes('premium_person_content','advanced');
+        
+        $name_heading = $settings['premium_person_name_heading'];
+        
+        $title_heading = $settings['premium_person_title_heading'];
+        
+        $skin = $settings['premium_person_style'];
+        
+        if( empty( $person ) ) :
+        ?>
+            <div class="premium-person-info-container">
+                <?php if( 'style3' !== $skin && ! empty( $settings['premium_person_name'] ) ) : ?>
+                    <<?php echo $name_heading; ?> class="premium-person-name"><span <?php echo $this->get_render_attribute_string('premium_person_name'); ?>><?php echo $settings['premium_person_name']; ?></span></<?php echo $name_heading; ?>>
+                <?php endif;
+
+                if( 'style3' === $skin ) : ?>
+                    <div class="premium-person-title-desc-wrap">
+                <?php endif;
+                    if( ! empty( $settings['premium_person_title'] ) ) : ?>
+                        <<?php echo $title_heading; ?> class="premium-person-title"><span <?php echo $this->get_render_attribute_string('premium_person_title'); ?>><?php echo $settings['premium_person_title']; ?></span></<?php echo $title_heading; ?>>
+                    <?php endif; 
+
+                    if( ! empty( $settings['premium_person_content'] ) ) : ?>
+                        <div class="premium-person-content">
+                            <div <?php echo $this->get_render_attribute_string('premium_person_content'); ?>>
+                                <?php echo $settings['premium_person_content']; ?>
+                            </div>
+                        </div>
+                    <?php endif;
+                if( 'style3' === $skin ) : ?>
+                    </div>
+                <?php endif;
+                
+                if( 'style3' === $skin ) : ?>
+                    <div class="premium-person-name-icons-wrap">
+                        <?php if( ! empty( $settings['premium_person_name'] ) ) : ?>
+                            <<?php echo $name_heading; ?> class="premium-person-name"><span <?php echo $this->get_render_attribute_string('premium_person_name'); ?>><?php echo $settings['premium_person_name']; ?></span></<?php echo $name_heading; ?>>
+                        <?php endif;
+                        if( 'yes' === $settings['premium_person_social_enable'] ) :
+                            $this->get_social_icons();
+                        endif; ?>
+                    </div>
+                <?php endif;
+                
+                if( 'style1' === $settings['premium_person_style'] && 'yes' === $settings['premium_person_social_enable'] ) :
+                    $this->get_social_icons();
+                endif; ?>
+            </div>
+        <?php else:
+            
+            $name_setting_key = $this->get_repeater_setting_key( 'multiple_name', 'multiple_persons', $index );
+            $title_setting_key = $this->get_repeater_setting_key( 'multiple_title', 'multiple_persons', $index );
+            $desc_setting_key = $this->get_repeater_setting_key( 'multiple_description', 'multiple_persons', $index );
+
+            $this->add_inline_editing_attributes( $name_setting_key, 'advanced' );
+            $this->add_inline_editing_attributes( $title_setting_key, 'advanced' );
+            $this->add_inline_editing_attributes( $desc_setting_key, 'advanced' );
+            
+        ?>
+            <div class="premium-person-info-container">
+                <?php if( 'style3' !== $skin && ! empty( $person['multiple_name'] ) ) : ?>
+                    <<?php echo $name_heading; ?> class="premium-person-name"><span <?php echo $this->get_render_attribute_string($name_setting_key); ?>><?php echo $person['multiple_name']; ?></span></<?php echo $name_heading; ?>>
+                <?php endif;
+
+                if( 'style3' === $skin ) : ?>
+                    <div class="premium-person-title-desc-wrap">
+                <?php endif;
+                    if( ! empty( $person['multiple_title'] ) ) : ?>
+                        <<?php echo $title_heading; ?> class="premium-person-title"><span <?php echo $this->get_render_attribute_string($title_setting_key); ?>><?php echo $person['multiple_title']; ?></span></<?php echo $title_heading; ?>>
+                    <?php endif;
+
+                    if( ! empty( $person['multiple_description'] ) ) : ?>
+                        <div class="premium-person-content">
+                            <div <?php echo $this->get_render_attribute_string($desc_setting_key); ?>>
+                                <?php echo $person['multiple_description']; ?>
+                            </div>
+                        </div>
+                    <?php endif;
+                if( 'style3' === $skin ) : ?>
+                    </div>
+                <?php endif;
+                
+                if( 'style3' === $skin ) : ?>
+                    <div class="premium-person-name-icons-wrap">
+                        <?php if( ! empty( $person['multiple_name'] ) ) : ?>
+                            <<?php echo $name_heading; ?> class="premium-person-name"><span <?php echo $this->get_render_attribute_string($name_setting_key); ?>><?php echo $person['multiple_name']; ?></span></<?php echo $name_heading; ?>>
+                        <?php endif;
+                        if( 'yes' === $person['multiple_social_enable'] ) :
+                            $this->get_social_icons( $person );
+                        endif; ?>
+                    </div>
+                <?php endif;
+
+                if( 'style1' === $settings['premium_person_style'] && 'yes' === $person['multiple_social_enable'] ) :
+                    $this->get_social_icons( $person );
+                endif; ?>
+            </div>
+        <?php endif;
+        
+    }
+
+
     protected function _content_template() {
         ?>
         <#
         
-        view.addInlineEditingAttributes( 'premium_person_name' );
+        view.addInlineEditingAttributes( 'premium_person_name', 'advanced' );
         
-        view.addInlineEditingAttributes( 'premium_person_title' );
+        view.addInlineEditingAttributes( 'premium_person_title', 'advanced' );
         
         view.addInlineEditingAttributes( 'premium_person_content', 'advanced' );
         
@@ -1575,11 +1690,11 @@ class Premium_Person extends Widget_Base {
         
         imageEffect = 'premium-person-' + settings.premium_person_hover_image_effect + '-effect' ;
         
-        skin        = 'premium-person-' + settings.premium_person_style;
+        skin        = settings.premium_person_style;
         
-        view.addRenderAttribute( 'persons_container', 'class', 'premium-persons-container' );
+        view.addRenderAttribute( 'persons_container', 'class', [ 'premium-persons-container', 'premium-person-' + skin ] );
         
-        view.addRenderAttribute('person_container', 'class', [ 'premium-person-container', imageEffect, skin ] );
+        view.addRenderAttribute('person_container', 'class', [ 'premium-person-container', imageEffect ] );
 
         var imageHtml = '';
         if ( settings.premium_person_image.url ) {
@@ -1737,25 +1852,51 @@ class Premium_Person extends Widget_Base {
                 </div>
                 <div class="premium-person-info">
                     <div class="premium-person-info-container">
-                        <# if( '' != settings.premium_person_name  ) { #>
-                        <{{{nameHeading}}} class="premium-person-name">
-                        <span {{{ view.getRenderAttributeString('premium_person_name') }}}>
-                            {{{ settings.premium_person_name }}}
-                        </span></{{{nameHeading}}}>
+                        <# if( 'style3' !== skin && '' != settings.premium_person_name ) { #>
+                            <{{{nameHeading}}} class="premium-person-name">
+                                <span {{{ view.getRenderAttributeString('premium_person_name') }}}>
+                                    {{{ settings.premium_person_name }}}
+                                </span>
+                            </{{{nameHeading}}}>
                         <# }
-                        if( '' != settings.premium_person_title  ) { #>
-                        <{{{titleHeading}}} class="premium-person-title">
-                        <span {{{ view.getRenderAttributeString('premium_person_title') }}}>
-                            {{{ settings.premium_person_title }}}
-                        </span></{{{titleHeading}}}>
+                        
+                        if( 'style3' === skin ) { #>
+                            <div class="premium-person-title-desc-wrap">
                         <# }
-                        if( '' != settings.premium_person_content ) { #>
-                            <div class="premium-person-content">
-                                <div {{{ view.getRenderAttributeString('premium_person_content') }}}>
-                                    {{{ settings.premium_person_content }}}
+                            if( '' != settings.premium_person_title ) { #>
+                                <{{{titleHeading}}} class="premium-person-title">
+                                    <span {{{ view.getRenderAttributeString('premium_person_title') }}}>
+                                        {{{ settings.premium_person_title }}}
+                                    </span>
+                                </{{{titleHeading}}}>
+                            <# }
+                            if( '' != settings.premium_person_content ) { #>
+                                <div class="premium-person-content">
+                                    <div {{{ view.getRenderAttributeString('premium_person_content') }}}>
+                                        {{{ settings.premium_person_content }}}
+                                    </div>
                                 </div>
+                            <# }
+                        if( 'style3' === skin ) { #>
                             </div>
                         <# }
+                        
+                        if( 'style3' === skin ) { #>
+                            <div class="premium-person-name-icons-wrap">
+                            <# if( '' != settings.premium_person_name ) { #>
+                                <{{{nameHeading}}} class="premium-person-name">
+                                    <span {{{ view.getRenderAttributeString('premium_person_name') }}}>
+                                        {{{ settings.premium_person_name }}}
+                                    </span>
+                                </{{{nameHeading}}}>
+                            <# }
+                            if( 'yes' === settings.premium_person_social_enable ) {
+                                getSocialIcons();
+                            } #>
+                            </div> 
+                       <# }
+                            
+                            
                         if ( 'style1' === settings.premium_person_style && 'yes' === settings.premium_person_social_enable ) {
                             getSocialIcons();
                         } #>
@@ -1769,8 +1910,8 @@ class Premium_Person extends Widget_Base {
                         descSettingKey = view.getRepeaterSettingKey( 'multiple_description', 'multiple_persons', index );
                     
                         
-                    view.addInlineEditingAttributes( nameSettingKey );
-                    view.addInlineEditingAttributes( titleSettingKey );
+                    view.addInlineEditingAttributes( nameSettingKey, 'advanced' );
+                    view.addInlineEditingAttributes( titleSettingKey, 'advanced' );
                     view.addInlineEditingAttributes( descSettingKey, 'advanced' );
                     
                     var personImageHtml = '';
@@ -1802,25 +1943,47 @@ class Premium_Person extends Widget_Base {
                         </div>
                         <div class="premium-person-info">
                             <div class="premium-person-info-container">
-                                <# if( '' != person.multiple_name ) { #>
+                                <# if( 'style3' !== skin && '' != person.multiple_name ) { #>
                                     <{{{nameHeading}}} class="premium-person-name">
                                     <span {{{ view.getRenderAttributeString( nameSettingKey ) }}}>
                                         {{{ person.multiple_name }}}
                                     </span></{{{nameHeading}}}>
                                 <# }
-                                if( '' != person.multiple_title  ) { #>
-                                    <{{{titleHeading}}} class="premium-person-title">
-                                    <span {{{ view.getRenderAttributeString( titleSettingKey ) }}}>
-                                        {{{ person.multiple_title }}}
-                                    </span></{{{titleHeading}}}>
+                                
+                                if( 'style3' === skin ) { #>
+                                    <div class="premium-person-title-desc-wrap">
                                 <# }
-                                if( '' != person.multiple_description ) { #>
-                                    <div class="premium-person-content">
-                                        <div {{{ view.getRenderAttributeString( descSettingKey ) }}}>
-                                            {{{ person.multiple_description }}}
+                                    if( '' != person.multiple_title  ) { #>
+                                        <{{{titleHeading}}} class="premium-person-title">
+                                        <span {{{ view.getRenderAttributeString( titleSettingKey ) }}}>
+                                            {{{ person.multiple_title }}}
+                                        </span></{{{titleHeading}}}>
+                                    <# }
+                                    if( '' != person.multiple_description ) { #>
+                                        <div class="premium-person-content">
+                                            <div {{{ view.getRenderAttributeString( descSettingKey ) }}}>
+                                                {{{ person.multiple_description }}}
+                                            </div>
                                         </div>
+                                    <# }
+                                if( 'style3' === skin ) { #>
                                     </div>
                                 <# }
+                                
+                                 if( 'style3' === skin ) { #>
+                                    <div class="premium-person-name-icons-wrap">
+                                    <# if( '' != settings.premium_person_name ) { #>
+                                        <{{{nameHeading}}} class="premium-person-name">
+                                        <span {{{ view.getRenderAttributeString( nameSettingKey ) }}}>
+                                            {{{ person.multiple_name }}}
+                                        </span></{{{nameHeading}}}>
+                                    <# }
+                                    if( 'yes' === person.multiple_social_enable ) {
+                                        getSocialIcons( person );
+                                    } #>
+                                    </div>
+                                <# }
+                                
                                 if ( 'style1' === settings.premium_person_style && 'yes' === person.multiple_social_enable ) {
                                     getSocialIcons( person );
                                 } #>

@@ -184,7 +184,8 @@ class Premium_Modalbox extends Widget_Base {
                 [
                     'label'			=> __( 'Content', 'premium-addons-for-elementor' ),
                     'description'	=> __( 'Modal content is a template which you can choose from Elementor library', 'premium-addons-for-elementor' ),
-                    'type' => Controls_Manager::SELECT2,
+                    'type'          => Controls_Manager::SELECT2,
+                    'label_block'   => true,
                     'options' => $this->getTemplateInstance()->get_elementor_page_list(),
                     'condition'     => [
                         'premium_modal_box_content_type'    => 'template',

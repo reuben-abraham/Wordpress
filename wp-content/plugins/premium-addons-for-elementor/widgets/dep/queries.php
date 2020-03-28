@@ -13,66 +13,83 @@ function premium_blog_get_post_data( $args, $paged, $new_offset ) {
         'offset'            => $new_offset,
     );
     
-    $atts = wp_parse_args( $args, $defaults );
+    $query_args = wp_parse_args( $args, $defaults );
     
-    $posts = get_posts( $atts );
+    $posts = get_posts( $query_args );
     
     return $posts;
 }
 
 function premium_blog_get_post_settings( $settings ) {
     
-        $authors = $settings['premium_blog_users'];
-        
-        if( ! empty( $authors ) ) {
-            $post_args['author'] = implode(',', $authors);
-        }
-        
-        $post_args['category'] = $settings['premium_blog_categories'];
-        
-        $post_args['tag__in'] = $settings['premium_blog_tags'];
-        
-        $post_args['post__not_in']  = $settings['premium_blog_posts_exclude'];
-        
-        $post_args['order'] = $settings['premium_blog_order'];
-        
-        $post_args['orderby'] = $settings['premium_blog_order_by'];
-        
-		$post_args['posts_per_page'] = $settings['premium_blog_number_of_posts'];
-        
-        return $post_args;
-} 
+    $authors = $settings['premium_blog_users'];
 
-function premium_addons_get_excerpt_by_id( $post_id, $excerpt_length, $excerpt_type, $exceprt_text, $excerpt_src ) {
-    
-    $the_post = get_post( $post_id );
+    $category_rule = $settings['category_filter_rule'];
 
-    $the_excerpt = null;
-    
-    if ( $the_post ) {
-        $the_excerpt = ( $excerpt_src ) ? $the_post->post_content : $the_post->post_excerpt;
+    $tag_rule = $settings['tags_filter_rule'];
+
+    $post_rule = $settings['posts_filter_rule'];
+
+    if( ! empty( $authors ) ) {
+        $author_rule = $settings['author_filter_rule'];
+        $post_args[ $author_rule ] = implode( ',', $authors );
     }
 
-    $the_excerpt = strip_tags( strip_shortcodes( $the_excerpt ) );
+    $post_args[ $category_rule ] = $settings['premium_blog_categories'];
+
+    $post_args[ $tag_rule ] = $settings['premium_blog_tags'];
+
+    $post_args[ $post_rule ]  = $settings['premium_blog_posts_exclude'];
+
+    $post_args['order'] = $settings['premium_blog_order'];
+
+    $post_args['orderby'] = $settings['premium_blog_order_by'];
+
+    $post_args['posts_per_page'] = $settings['premium_blog_number_of_posts'];
+
+    return $post_args;
+} 
+
+function premium_blog_get_excerpt_by_id( $source, $excerpt_length, $cta_type, $read_more ) {
     
-    $words = explode( ' ', $the_excerpt, $excerpt_length + 1 );
+    if( 0 === $excerpt_length ) {
+        return;
+    }
+    
+    $excerpt = trim( get_the_excerpt() );
+    
+    if( 'full' === $source || empty( $excerpt ) ) {
+        
+        the_content();
+        
+        if( ! empty( $read_more ) && 'link' === $cta_type ) {
+            $excerpt = '<div class="premium-blog-excerpt-link-wrap"><a href="' . get_permalink() .'" class="premium-blog-excerpt-link elementor-button">' . $read_more . '</a></div>'; 
+        }
+        
+    } else {
+        
+        $words = explode( ' ', $excerpt, $excerpt_length + 1 );
+        
+        if( count( $words ) > $excerpt_length ) {
 
-     if( count( $words ) > $excerpt_length ) :
-         array_pop( $words );
-         if( 'dots' == $excerpt_type ) {
-            array_push( $words, '…' );
-         } else {
-            array_push( $words, ' <a href="' . get_permalink( $post_id ) .'" class="premium-blog-excerpt-link">' . $exceprt_text . '</a>' ); 
-         }
-         
-         $the_excerpt = implode( ' ', $words );
-     endif;
+            if( ! has_excerpt() ) {
+                array_pop( $words );
+                array_push( $words, '…' );
+            }
 
-     return $the_excerpt;
+            if( ! empty( $read_more ) && 'link' === $cta_type ) {
+                array_push( $words, '<div class="premium-blog-excerpt-link-wrap"><a href="' . get_permalink() .'" class="premium-blog-excerpt-link elementor-button">' . $read_more . '</a></div>' ); 
+            }
+
+            $excerpt = implode( ' ', $words );
+        }
+    }
+    
+    return $excerpt;
      
 }
 
-function premium_addons_post_type_categories() {
+function premium_blog_post_type_categories() {
     $terms = get_terms(
         array( 
             'taxonomy' => 'category',
@@ -91,7 +108,7 @@ function premium_addons_post_type_categories() {
     return $options;
 }
 
-function premium_addons_post_type_users() {
+function premium_blog_post_type_users() {
     $users = get_users();
     
     $options = array();
@@ -107,7 +124,7 @@ function premium_addons_post_type_users() {
     return $options;
 }
 
-function premium_addons_post_type_tags() {
+function premium_blog_post_type_tags() {
     $tags = get_tags();
     
     $options = array();
@@ -120,7 +137,9 @@ function premium_addons_post_type_tags() {
     
     return $options;
 }
-function premium_addons_posts_list() {
+
+function premium_blog_posts_list() {
+    
     $list = get_posts( array(
         'post_type'         => 'post',
         'posts_per_page'    => -1,

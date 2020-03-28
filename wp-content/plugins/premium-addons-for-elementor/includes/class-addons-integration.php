@@ -4,6 +4,7 @@ namespace PremiumAddons;
 
 use PremiumAddons\Admin\Settings\Maps;
 use PremiumAddons\Admin\Settings\Modules_Settings;
+use PremiumAddons\Helper_Functions;
 
 if( ! defined( 'ABSPATH' ) ) exit();
 
@@ -67,7 +68,7 @@ class Addons_Integration {
             PREMIUM_ADDONS_VERSION
         );
         
-        $badge_text = \PremiumAddons\Helper_Functions::get_badge();
+        $badge_text = Helper_Functions::get_badge();
         
         $dynamic_css = sprintf( '[class^="pa-"]::after, [class*=" pa-"]::after { content: "%s"; }', $badge_text ) ;
 
@@ -82,9 +83,14 @@ class Addons_Integration {
     */
     public function register_frontend_styles() {
         
+        $dir = Helper_Functions::get_styles_dir();
+		$suffix = Helper_Functions::get_assets_suffix();
+        
+        $is_rtl = is_rtl() ? '-rtl' : '';
+        
         wp_register_style(
             'pa-prettyphoto',
-            PREMIUM_ADDONS_URL . 'assets/frontend/css/prettyphoto.css',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/prettyphoto' . $is_rtl . $suffix . '.css',
             array(),
             PREMIUM_ADDONS_VERSION,
             'all'
@@ -92,7 +98,7 @@ class Addons_Integration {
         
         wp_register_style(
             'premium-addons',
-            PREMIUM_ADDONS_URL . 'assets/frontend/css/premium-addons.css',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-addons' . $is_rtl . $suffix . '.css',
             array(),
             PREMIUM_ADDONS_VERSION,
             'all'
@@ -109,9 +115,9 @@ class Addons_Integration {
      */
     public function enqueue_preview_styles() {
         
-        wp_enqueue_style('pa-prettyphoto');
+        wp_enqueue_style( 'pa-prettyphoto' );
         
-        wp_enqueue_style('premium-addons');
+        wp_enqueue_style( 'premium-addons' );
 
     }
     
@@ -159,25 +165,22 @@ class Addons_Integration {
         
         $maps_settings = self::$maps;
         
+        $dir = Helper_Functions::get_scripts_dir();
+		$suffix = Helper_Functions::get_assets_suffix();
+        
         $locale = isset ( $maps_settings['premium-map-locale'] ) ? $maps_settings['premium-map-locale'] : "en";
         
         wp_register_script(
             'premium-addons-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/premium-addons.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-addons' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
         );
         
-        $data = array(
-            'ajaxurl'       => esc_url( admin_url( 'admin-ajax.php' ) )
-        );
-        
-		wp_localize_script( 'premium-addons-js', 'PremiumSettings', $data );
-        
         wp_register_script(
             'prettyPhoto-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/prettyPhoto.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/prettyPhoto' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
@@ -185,14 +188,14 @@ class Addons_Integration {
         
         wp_register_script(
             'vticker-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/Vticker.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/vticker' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
         );
         wp_register_script(
             'typed-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/typedmin.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/typed' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
@@ -200,7 +203,7 @@ class Addons_Integration {
         
         wp_register_script(
             'count-down-timer-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/jquerycountdown.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/jquery-countdown' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
@@ -208,7 +211,7 @@ class Addons_Integration {
        
         wp_register_script(
             'isotope-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/isotope.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/isotope' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
@@ -216,13 +219,53 @@ class Addons_Integration {
 
         wp_register_script(
             'modal-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/modal.js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/modal' . $suffix . '.js',
             array('jquery'),
             PREMIUM_ADDONS_VERSION,
             true
         );
         
-        if( $maps_settings['premium-map-cluster'] ) {
+        wp_register_script(
+            'premium-maps-js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-maps' . $suffix . '.js',
+            array( 'jquery', 'premium-maps-api-js' ),
+            PREMIUM_ADDONS_VERSION,
+            true
+        );
+
+        wp_register_script( 
+            'vscroll-js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/premium-vscroll' . $suffix . '.js',
+            array('jquery'),
+            PREMIUM_ADDONS_VERSION,
+            true
+        );
+        
+       wp_register_script( 
+           'slimscroll-js',
+           PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/jquery-slimscroll' . $suffix . '.js',
+           array('jquery'),
+           PREMIUM_ADDONS_VERSION,
+           true
+       );
+       
+       wp_register_script( 
+           'iscroll-js',
+           PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/iscroll' . $suffix . '.js',
+           array('jquery'),
+           PREMIUM_ADDONS_VERSION,
+           true
+       );
+       
+       wp_register_script(
+            'tilt-js',
+            PREMIUM_ADDONS_URL . 'assets/frontend/' . $dir . '/universal-tilt' . $suffix . '.js',
+            array( 'jquery' ), 
+            PREMIUM_ADDONS_VERSION, 
+            true
+        );
+       
+       if( $maps_settings['premium-map-cluster'] ) {
             wp_register_script(
                 'google-maps-cluster',
                 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js',
@@ -242,38 +285,12 @@ class Addons_Integration {
                 false
             );
         }
-
-        wp_register_script(
-            'premium-maps-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/premium-maps.js',
-            array( 'jquery', 'premium-maps-api-js' ),
-            PREMIUM_ADDONS_VERSION,
-            true
-        );
-
-        wp_register_script( 
-            'vscroll-js',
-            PREMIUM_ADDONS_URL . 'assets/frontend/js/premium-vscroll.js',
-            array('jquery'),
-            PREMIUM_ADDONS_VERSION,
-            true
+        
+        $data = array(
+            'ajaxurl'       => esc_url( admin_url( 'admin-ajax.php' ) )
         );
         
-       wp_register_script( 
-           'slimscroll-js',
-           PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/jquery.slimscroll.js',
-           array('jquery'),
-           PREMIUM_ADDONS_VERSION,
-           true
-       );
-       
-       wp_register_script( 
-           'iscroll-js',
-           PREMIUM_ADDONS_URL . 'assets/frontend/js/lib/iscroll.js',
-           array('jquery'),
-           PREMIUM_ADDONS_VERSION,
-           true
-       );
+		wp_localize_script( 'premium-addons-js', 'PremiumSettings', $data );
         
     }
     
@@ -296,6 +313,7 @@ class Addons_Integration {
         	$premium_maps_disable_api = self::$maps['premium-map-disable-api'];
         
         	if ( $premium_maps_disable_api && '1' != $premium_maps_api ) {
+                
 				$api = sprintf ( 'https://maps.googleapis.com/maps/api/js?key=%1$s&language=%2$s', $premium_maps_api, $locale );
             	wp_enqueue_script(
                 	'premium-maps-api-js',
@@ -308,8 +326,8 @@ class Addons_Integration {
         	}
 
 			wp_enqueue_script(
-				'premium-maps-address',
-				PREMIUM_ADDONS_URL . 'assets/editor/js/premium-maps-address.js',
+				'pa-maps-finder',
+				PREMIUM_ADDONS_URL . 'assets/editor/js/pa-maps-finder.js',
 				array( 'jquery' ),
 				PREMIUM_ADDONS_VERSION,
 				true

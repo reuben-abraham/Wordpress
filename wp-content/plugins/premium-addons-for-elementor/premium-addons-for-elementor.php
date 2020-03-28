@@ -3,7 +3,7 @@
 Plugin Name: Premium Addons for Elementor
 Description: Premium Addons Plugin Includes 22+ premium widgets for Elementor Page Builder.
 Plugin URI: https://premiumaddons.com
-Version: 3.10.9
+Version: 3.12.0
 Author: Leap13
 Author URI: https://leap13.com/
 Text Domain: premium-addons-for-elementor
@@ -14,12 +14,12 @@ License: GNU General Public License v3.0
 if ( ! defined('ABSPATH') ) exit; // No access of directly access
 
 // Define Constants
-define('PREMIUM_ADDONS_VERSION', '3.10.9');
+define('PREMIUM_ADDONS_VERSION', '3.12.0');
 define('PREMIUM_ADDONS_URL', plugins_url( '/', __FILE__ ) );
 define('PREMIUM_ADDONS_PATH', plugin_dir_path( __FILE__ ) );
 define('PREMIUM_ADDONS_FILE', __FILE__);
 define('PREMIUM_ADDONS_BASENAME', plugin_basename( PREMIUM_ADDONS_FILE ) );
-define('PREMIUM_ADDONS_STABLE_VERSION', '3.10.8');
+define('PREMIUM_ADDONS_STABLE_VERSION', '3.11.9');
 
 if( ! class_exists('Premium_Addons_Elementor') ) {
     

@@ -58,9 +58,11 @@ if( ! class_exists('Premium_Templates_Assets') ) {
          */
         public function editor_styles() {
             
+            $is_rtl = is_rtl() ? '-rtl' : '';
+            
             wp_enqueue_style(
                 'premium-editor-style',
-                PREMIUM_ADDONS_URL . 'assets/editor/templates/css/editor.css',
+                PREMIUM_ADDONS_URL . 'assets/editor/templates/css/editor' . $is_rtl . '.css',
                 array(),
                 PREMIUM_ADDONS_VERSION,
                 'all'
@@ -78,9 +80,11 @@ if( ! class_exists('Premium_Templates_Assets') ) {
          */
         public function enqueue_preview_styles() {
             
+            $is_rtl = is_rtl() ? '-rtl' : '';
+            
             wp_enqueue_style(
                 'pa-preview',
-                PREMIUM_ADDONS_URL . 'assets/editor/templates/css/preview.css', 
+                PREMIUM_ADDONS_URL . 'assets/editor/templates/css/preview' . $is_rtl . '.css', 
                 array(),
                 PREMIUM_ADDONS_VERSION,
                 'all'

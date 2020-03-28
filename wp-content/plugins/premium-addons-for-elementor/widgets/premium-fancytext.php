@@ -159,9 +159,9 @@ class Premium_Fancytext extends Widget_Base {
                     'slide'  => __('Slide Up', 'premium-addons-for-elementor'),
                     'zoomout'=> __('Zoom Out', 'premium-addons-for-elementor'),
                     'rotate' => __('Rotate', 'premium-addons-for-elementor'),
-//                    'bar'    => __('Bar', 'premium-addons-for-elementor'),
                 ],
                 'default'       => 'typing',
+                'render_type'   => 'template',
                 'label_block'   => true,
             ]
         );
@@ -323,7 +323,6 @@ class Premium_Fancytext extends Widget_Base {
                 'label'         => __('Pause on Hover','premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SWITCHER,
                 'description'   => __( 'If you enabled this option, the slide will be paused when mouseover.', 'premium-addons-for-elementor' ),
-                'default'       => 'no',
                 'condition'     => [
                     'premium_fancy_text_effect' => 'slide',
                 ],
@@ -514,7 +513,7 @@ class Premium_Fancytext extends Widget_Base {
         $this->end_controls_section();
     }
 
-    protected function render( ) {
+    protected function render() {
         
         $settings   = $this->get_settings_for_display();
         
@@ -551,7 +550,7 @@ class Premium_Fancytext extends Widget_Base {
             $this->add_render_attribute( 'prefix', 'class', 'premium-fancy-text-span-align' );
             $this->add_render_attribute( 'suffix', 'class', 'premium-fancy-text-span-align' );
             
-            $mause_pause = ! empty( $settings['premium_slide_up_hover_pause'] ) ? true : false;
+            $mause_pause = 'yes' === $settings['premium_slide_up_hover_pause'] ? true : false;
             $fancytext_settings = [
                 'effect'        => $effect,
                 'speed'         => $settings['premium_slide_up_speed'],
@@ -611,16 +610,17 @@ class Premium_Fancytext extends Widget_Base {
             view.addInlineEditingAttributes('prefix');
             view.addInlineEditingAttributes('suffix');
             
-            var effect = settings.premium_fancy_text_effect
+            var effect = settings.premium_fancy_text_effect;
             
-            var cursorText          = settings.premium_fancy_text_cursor_text,
-                cursorTextEscaped   = cursorText.replace(/'/g, "\\'");
-        
             var fancyTextSettings = {};
+            
+            fancyTextSettings.effect = effect;
         
         if( 'typing' === effect ) {
         
-            var showCursor  = settings.premium_fancy_text_show_cursor ? true : false,
+            var cursorText          = settings.premium_fancy_text_cursor_text,
+                cursorTextEscaped   = cursorText.replace(/'/g, "\\'"),
+                showCursor  = settings.premium_fancy_text_show_cursor ? true : false,
                 loop        = settings.premium_fancy_text_type_loop ? true : false,
                 strings     = [];
             
@@ -645,7 +645,7 @@ class Premium_Fancytext extends Widget_Base {
             
         } else if ( 'slide' === effect ) {
         
-            var mausePause = settings.premium_slide_up_hover_pause ? true : false;
+            var mausePause = 'yes' === settings.premium_slide_up_hover_pause ? true : false;
             
             fancyTextSettings.speed         = settings.premium_slide_up_speed,
             fancyTextSettings.showItems     = settings.premium_slide_up_shown_items,

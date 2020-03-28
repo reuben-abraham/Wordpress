@@ -30,7 +30,7 @@
 		CategoriesCollection: null,
 		ModalPreviewView: null,
 		ModalHeaderBack: null,
-        ModalHeaderLogo: null,
+		ModalHeaderLogo: null,
 		KeywordsView: null,
 		TabModel: null,
 		CategoryModel: null,
@@ -65,7 +65,7 @@
 				},
 
 				regions: {
-                    headerLogo: '#premium-template-modal-header-logo-area',
+					headerLogo: '#premium-template-modal-header-logo-area',
 					headerTabs: '#premium-template-modal-header-tabs',
 					headerActions: '#premium-template-modal-header-actions'
 				},
@@ -123,15 +123,15 @@
 					var selected = event.currentTarget.selectedOptions[0].value;
 					PremiumEditor.setFilter('keyword', selected);
 				},
-                
-                onRender: function() {
-                    var $filters = this.$('.premium-library-keywords');
-                    $filters.select2({
-                        placeholder: 'Choose Widget',
-                        allowClear: true,
-                        width: 250
-                    });
-                }
+
+				onRender: function () {
+					var $filters = this.$('.premium-library-keywords');
+					$filters.select2({
+						placeholder: 'Choose Widget',
+						allowClear: true,
+						width: 250
+					});
+				}
 			});
 
 			self.ModalPreviewView = Marionette.ItemView.extend({
@@ -158,7 +158,7 @@
 							} else if (-1 !== this.getOption('notice').indexOf("form")) {
 								message += "<p>You need to have <a href='https://wordpress.org/plugins/contact-form-7/' target='_blank'>Contact Form 7 plugin</a> installed and active.</p>";
 							}
-                            
+
 							this.ui.notice.html('<div><p><strong>Important!</strong></p>' + message + '</div>');
 						}
 					}
@@ -167,7 +167,7 @@
 
 				}
 			});
-            
+
 			self.ModalHeaderBack = Marionette.ItemView.extend({
 
 				template: '#tmpl-premium-template-modal-header-back',
@@ -187,8 +187,8 @@
 				}
 
 			});
-            
-            self.ModalHeaderLogo = Marionette.ItemView.extend({
+
+			self.ModalHeaderLogo = Marionette.ItemView.extend({
 
 				template: '#tmpl-premium-template-modal-header-logo',
 
@@ -247,8 +247,8 @@
 						}
 					}
 
-					if ("valid" === PremiumTempsData.license.status || ! isPro ) {
-                        
+					if ("valid" === PremiumTempsData.license.status || !isPro) {
+
 						elementor.templates.requestTemplateContent(
 							templateModel.get('source'),
 							templateModel.get('template_id'),
@@ -258,28 +258,28 @@
 									page_settings: false
 								},
 								success: function (data) {
-                                    
-                                    if ( ! data.license ) {
-                                        PremiumEditor.layout.showLicenseError();
-                                        return;
-                                    }
-                                        
-                                    console.log("%c Template Inserted Successfully!!", "color: #7a7a7a; background-color: #eee;");
 
-                                    PremiumEditor.closeModal();
+									if (!data.license) {
+										PremiumEditor.layout.showLicenseError();
+										return;
+									}
 
-                                    elementor.channels.data.trigger('template:before:insert', templateModel);
+									console.log("%c Template Inserted Successfully!!", "color: #7a7a7a; background-color: #eee;");
 
-                                    if (null !== PremiumEditor.atIndex) {
-                                        options.at = PremiumEditor.atIndex;
-                                    }
+									PremiumEditor.closeModal();
 
-                                    elementor.sections.currentView.addChildModel(data.content, options);
+									elementor.channels.data.trigger('template:before:insert', templateModel);
 
-                                    elementor.channels.data.trigger('template:after:insert', templateModel);
+									if (null !== PremiumEditor.atIndex) {
+										options.at = PremiumEditor.atIndex;
+									}
 
-                                    PremiumEditor.atIndex = null;
-                                        
+									elementor.sections.currentView.addChildModel(data.content, options);
+
+									elementor.channels.data.trigger('template:after:insert', templateModel);
+
+									PremiumEditor.atIndex = null;
+
 								},
 								error: function (err) {
 									console.log(err);
@@ -500,9 +500,9 @@
 					if ('premium_page' === tab || 'local' === tab) {
 						return;
 					}
-                    
+
 					// Wait for thumbnails to be loaded
-					container.imagesLoaded(function () {}).done(function () {
+					container.imagesLoaded(function () { }).done(function () {
 						self.masonry.init({
 							container: container,
 							items: items
@@ -536,45 +536,45 @@
 
 					var header = this.getHeaderView(),
 						preview = PremiumEditor.getPreview();
-                        
-                        var filter = PremiumEditor.getFilter('category'),
+
+					var filter = PremiumEditor.getFilter('category'),
 						keyword = PremiumEditor.getFilter('keyword');
-                        
+
 					if ('back' === preview) {
-                        header.headerLogo.show(new self.ModalHeaderLogo());
+						header.headerLogo.show(new self.ModalHeaderLogo());
 						header.headerTabs.show(new self.ModalTabsCollectionView({
 							collection: PremiumEditor.collections.tabs
 						}));
-                        
+
 						header.headerActions.empty();
 						PremiumEditor.setTab(PremiumEditor.getTab());
-                        
-                        if( '' != filter ) {
-                            PremiumEditor.setFilter( 'category', filter );
-                            jQuery('#premium-modal-filters-container').find("input[value='" + filter + "']").prop('checked', true);
-                        
-                        }
-                        
-                        if( '' != keyword ) {
-                            PremiumEditor.setFilter('keyword', keyword);
-                        }
-                        
+
+						if ('' != filter) {
+							PremiumEditor.setFilter('category', filter);
+							jQuery('#premium-modal-filters-container').find("input[value='" + filter + "']").prop('checked', true);
+
+						}
+
+						if ('' != keyword) {
+							PremiumEditor.setFilter('keyword', keyword);
+						}
+
 						return;
 					}
 
 					if ('initial' === preview) {
 						header.headerActions.empty();
-                        header.headerLogo.show(new self.ModalHeaderLogo());
+						header.headerLogo.show(new self.ModalHeaderLogo());
 						return;
 					}
 
 					this.getRegion('modalContent').show(new self.ModalPreviewView({
 						'preview': preview.get('preview'),
 						'url': preview.get('url'),
-                        'notice': preview.get('notice')
+						'notice': preview.get('notice')
 					}));
-                    
-                    header.headerLogo.empty();
+
+					header.headerLogo.empty();
 					header.headerTabs.show(new self.ModalHeaderBack());
 					header.headerActions.show(new self.ModalHeaderInsertButton({
 						model: preview
@@ -609,7 +609,7 @@
 						});
 
 					PremiumEditor.collections.tabs = new self.ModalTabsCollection(PremiumEditor.getTabs());
-                    
+
 					header.headerTabs.show(new self.ModalTabsCollectionView({
 						collection: PremiumEditor.collections.tabs
 					}));
@@ -623,9 +623,9 @@
 					}));
 
 					contentView.contentKeywords.show(new self.KeywordsView({
-                        model: keywordsModel
-                    }));
-                    
+						model: keywordsModel
+					}));
+
 				}
 
 			});
@@ -862,42 +862,44 @@
 
 		initPremTempsButton: function () {
 
+			setTimeout(function () {
+				var $addNewSection = window.elementor.$previewContents.find('.elementor-add-new-section'),
+					addPremiumTemplate = "<div class='elementor-add-section-area-button pa-add-section-btn' title='Add Premium Template'><i class='fas fa-star'></i></div>",
+					$addPremiumTemplate;
 
-			var $addNewSection = window.elementor.$previewContents.find('.elementor-add-new-section'),
-				addPremiumTemplate = "<div class='elementor-add-section-area-button pa-add-section-btn' title='Add Premium Template'><i class='fas fa-star'></i></div>",
-				$addPremiumTemplate;
+				if ($addNewSection.length && PremiumTempsData.PremiumTemplatesBtn) {
 
-			if ($addNewSection.length && PremiumTempsData.PremiumTemplatesBtn) {
-
-				$addPremiumTemplate = $(addPremiumTemplate).prependTo($addNewSection);
-			}
-
-			window.elementor.$previewContents.on(
-				'click.addPremiumTemplate',
-				'.elementor-editor-section-settings .elementor-editor-element-add',
-				function () {
-
-					var $this = $(this),
-						$section = $this.closest('.elementor-top-section'),
-						modelID = $section.data('model-cid');
-
-					if (window.elementor.sections.currentView.collection.length) {
-						$.each(window.elementor.sections.currentView.collection.models, function (index, model) {
-							if (modelID === model.cid) {
-								PremiumEditor.atIndex = index;
-							}
-						});
-					}
-
-					if (PremiumTempsData.PremiumTemplatesBtn) {
-						setTimeout(function () {
-							var $addNew = $section.prev('.elementor-add-section').find('.elementor-add-new-section');
-							$addNew.prepend(addPremiumTemplate);
-						}, 100);
-					}
-
+					$addPremiumTemplate = $(addPremiumTemplate).prependTo($addNewSection);
 				}
-			);
+			
+
+                window.elementor.$previewContents.on(
+                    'click.addPremiumTemplate',
+                    '.elementor-editor-section-settings .elementor-editor-element-add',
+                    function () {
+
+                        var $this = $(this),
+                            $section = $this.closest('.elementor-top-section'),
+                            modelID = $section.data('model-cid');
+
+                        if (window.elementor.sections.currentView.collection.length) {
+                            $.each(window.elementor.sections.currentView.collection.models, function (index, model) {
+                                if (modelID === model.cid) {
+                                    PremiumEditor.atIndex = index;
+                                }
+                            });
+                        }
+
+                        if (PremiumTempsData.PremiumTemplatesBtn) {
+                            setTimeout(function () {
+                                var $addNew = $section.prev('.elementor-add-section').find('.elementor-add-new-section');
+                                $addNew.prepend(addPremiumTemplate);
+                            }, 100);
+                        }
+
+                    }
+                );
+            }, 100);
 		},
 
 		getFilter: function (name) {

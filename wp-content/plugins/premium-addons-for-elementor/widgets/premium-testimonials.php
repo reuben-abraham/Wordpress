@@ -98,22 +98,25 @@ class Premium_Testimonials extends Widget_Base {
         
         /*Name Title Tag*/
         $this->add_control('premium_testimonial_person_name_size',
-                [
-                    'label'             => __('HTML Tag', 'premium-addons-for-elementor'),
-                    'type'              => Controls_Manager::SELECT,
-                    'description'       => __( 'Select a heading tag for author name', 'premium-addons-for-elementor' ),
-                    'options'       => [
-                        'h1'    => 'H1',
-                        'h2'    => 'H2',
-                        'h3'    => 'H3',
-                        'h4'    => 'H4',
-                        'h5'    => 'H5',
-                        'h6'    => 'H6',
-                        ],
-                    'default'           => 'h3',
-                    'label_block'       => true,
-                    ]
-                );
+            [
+                'label'             => __('HTML Tag', 'premium-addons-for-elementor'),
+                'type'              => Controls_Manager::SELECT,
+                'description'       => __( 'Select a heading tag for author name', 'premium-addons-for-elementor' ),
+                'options'       => [
+                    'h1'    => 'H1',
+                    'h2'    => 'H2',
+                    'h3'    => 'H3',
+                    'h4'    => 'H4',
+                    'h5'    => 'H5',
+                    'h6'    => 'H6',
+                    'div'   => 'div',
+                    'span'  => 'span',
+                    'p'     => 'p',
+                ],
+                'default'           => 'h3',
+                'label_block'       => true,
+                ]
+            );
         
         /*End Person Content Section*/
         $this->end_controls_section();
@@ -139,22 +142,25 @@ class Premium_Testimonials extends Widget_Base {
         
         /*Company Name Tag*/
         $this->add_control('premium_testimonial_company_name_size',
-                [
-                    'label'             => __('HTML Tag', 'premium-addons-for-elementor'),
-                    'type'              => Controls_Manager::SELECT,
-                    'description'       => __( 'Select a heading tag for company name', 'premium-addons-for-elementor' ),
-                    'options'           => [
-                        'h1' => 'H1',
-                        'h2' => 'H2',
-                        'h3' => 'H3',
-                        'h4' => 'H4',
-                        'h5' => 'H5',
-                        'h6' => 'H6', 
-                        ],
-                    'default'           => 'h4',
-                    'label_block'       => true,
-                    ]
-                );
+            [
+                'label'             => __('HTML Tag', 'premium-addons-for-elementor'),
+                'type'              => Controls_Manager::SELECT,
+                'description'       => __( 'Select a heading tag for company name', 'premium-addons-for-elementor' ),
+                'options'           => [
+                    'h1' => 'H1',
+                    'h2' => 'H2',
+                    'h3' => 'H3',
+                    'h4' => 'H4',
+                    'h5' => 'H5',
+                    'h6' => 'H6',
+                    'div'   => 'div',
+                    'span'  => 'span',
+                    'p'     => 'p',
+                ],
+                'default'           => 'h4',
+                'label_block'       => true,
+            ]
+        );
         
         $this->add_control('premium_testimonial_company_link_switcher',
                 [
@@ -618,14 +624,30 @@ class Premium_Testimonials extends Widget_Base {
                 <?php endif; ?>
 
                 <div class="premium-testimonial-text-wrapper">
-                    <div <?php echo $this->get_render_attribute_string('premium_testimonial_content'); ?>><?php echo $settings['premium_testimonial_content']; ?></div>
+                    <div <?php echo $this->get_render_attribute_string('premium_testimonial_content'); ?>>
+                        <?php echo $settings['premium_testimonial_content']; ?>
+                    </div>
                 </div>
 
-                <span class="premium-testimonial-author-info">
-                    <<?php echo $person_title_tag; ?> class="premium-testimonial-person-name"><span <?php echo $this->get_render_attribute_string('premium_testimonial_person_name'); ?>><?php echo $settings['premium_testimonial_person_name']; ?></span></<?php echo $person_title_tag; ?>><span class="premium-testimonial-separator"> - </span>
+                <div class="premium-testimonial-author-info">
+                    <<?php echo $person_title_tag; ?> class="premium-testimonial-person-name">
+                        <span <?php echo $this->get_render_attribute_string('premium_testimonial_person_name'); ?>><?php echo $settings['premium_testimonial_person_name']; ?></span>
+                    </<?php echo $person_title_tag; ?>>
+                    
+                    <span class="premium-testimonial-separator"> - </span>
 
-                    <<?php echo $company_title_tag; ?> class="premium-testimonial-company-name"><?php if($settings['premium_testimonial_company_link_switcher'] == 'yes') : ?><a class="premium-testimonial-company-link" href="<?php echo $settings['premium_testimonial_company_link']; ?>" target="_<?php echo $settings['premium_testimonial_link_target']; ?>"><span <?php echo $this->get_render_attribute_string('premium_testimonial_company_name'); ?>><?php echo $settings['premium_testimonial_company_name']; ?></span></a><?php else: ?><span class="premium-testimonial-company-link" <?php echo $this->get_render_attribute_string('premium_testimonial_company_name'); ?>><?php echo $settings['premium_testimonial_company_name']; ?></span><?php endif;?></<?php echo $company_title_tag; ?>>
-                </span>
+                    <<?php echo $company_title_tag; ?> class="premium-testimonial-company-name">
+                    <?php if( $settings['premium_testimonial_company_link_switcher'] === 'yes') : ?>
+                        <a class="premium-testimonial-company-link" href="<?php echo $settings['premium_testimonial_company_link']; ?>" target="_<?php echo $settings['premium_testimonial_link_target']; ?>">
+                            <span <?php echo $this->get_render_attribute_string('premium_testimonial_company_name'); ?>><?php echo $settings['premium_testimonial_company_name']; ?></span>
+                        </a>
+                    <?php else: ?>
+                        <span class="premium-testimonial-company-link" <?php echo $this->get_render_attribute_string('premium_testimonial_company_name'); ?>>
+                            <?php echo $settings['premium_testimonial_company_name']; ?>
+                        </span>
+                    <?php endif; ?>
+                    </<?php echo $company_title_tag; ?>>
+                </div>
             </div>
             <i class="fa fa-quote-right premium-testimonial-lower-quote"></i>
         </div>
@@ -682,11 +704,11 @@ class Premium_Testimonials extends Widget_Base {
                             <div {{{ view.getRenderAttributeString('premium_testimonial_content') }}}>{{{ settings.premium_testimonial_content }}}</div>
                         </div>
                         
-                        <span class="premium-testimonial-author-info">
+                        <div class="premium-testimonial-author-info">
                             <{{{personTag}}} class="premium-testimonial-person-name"><span {{{ view.getRenderAttributeString('premium_testimonial_person_name') }}}>{{{ settings.premium_testimonial_person_name }}}</span></{{{personTag}}}><span class="premium-testimonial-separator"> - </span>
 
                             <{{{companyTag}}} class="premium-testimonial-company-name"><a href="{{ settings.premium_testimonial_company_link }}" {{{ view.getRenderAttributeString('premium_testimonial_company_name') }}}>{{{ settings.premium_testimonial_company_name }}}</a></{{{companyTag}}}>
-                        </span>
+                        </div>
                         
                     </div>
                     

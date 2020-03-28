@@ -51,21 +51,19 @@ class Premium_Contactform extends Widget_Base {
     // This will controls the animation, colors and background, dimensions etc
     protected function _register_controls() {
 
-  		$this->start_controls_section(
-  			'premium_section_wpcf7_form',
+  		$this->start_controls_section('premium_section_wpcf7_form',
   			[
   				'label' => __( 'Contact Form', 'premium-addons-for-elementor' )
   			]
   		);
 
         
-		$this->add_control(
-			'premium_wpcf7_form',
+		$this->add_control('premium_wpcf7_form',
 			[
 				'label' => __( 'Select Your Contact Form', 'premium-addons-for-elementor' ),
 				'label_block' => true,
 				'type' => Controls_Manager::SELECT,
-				'options' => $this->premium_contact_form(),
+				'options' => $this->get_wpcf_forms(),
 			]
 		);
 
@@ -75,16 +73,17 @@ class Premium_Contactform extends Widget_Base {
         $this->start_controls_section('premium_wpcf7_fields', 
             [
                 'label'     => __('Fields', 'premium-addons-for-elementor'),
-            ]);
+            ]
+        );
         
         $this->add_control('premium_wpcf7_fields_heading',
             [
                 'label'     => __('Width', 'premium-addons-for-elementor'),
                 'type'      => Controls_Manager::HEADING
-            ]);
+            ]
+        );
         
-        $this->add_responsive_control(
-  			'premium_elements_input_width',
+        $this->add_responsive_control('premium_elements_input_width',
   			[
   				'label' => __( 'Input Field', 'premium-addons-for-elementor' ),
   				'type' => Controls_Manager::SLIDER,
@@ -104,13 +103,12 @@ class Premium_Contactform extends Widget_Base {
                     'unit'  => '%'
                 ],
 				'selectors' => [
-					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text' => 'width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container .wpcf7-file' => 'width: {{SIZE}}{{UNIT}};',
 				],
   			]
   		);
         
-         $this->add_responsive_control(
-  			'premium_elements_textarea_width',
+         $this->add_responsive_control('premium_elements_textarea_width',
   			[
   				'label' => __( 'Text Area', 'premium-addons-for-elementor' ),
   				'type' => Controls_Manager::SLIDER,
@@ -139,10 +137,10 @@ class Premium_Contactform extends Widget_Base {
             [
                 'label'     => __('Height', 'premium-addons-for-elementor'),
                 'type'      => Controls_Manager::HEADING
-            ]);
+            ]
+        );
          
-         $this->add_responsive_control(
-  			'premium_elements_input_height',
+         $this->add_responsive_control('premium_elements_input_height',
   			[
   				'label' => __( 'Input Field', 'premium-addons-for-elementor' ),
   				'type' => Controls_Manager::SLIDER,
@@ -163,8 +161,7 @@ class Premium_Contactform extends Widget_Base {
   			]
   		);
         
-         $this->add_responsive_control(
-  			'premium_elements_textarea_height',
+         $this->add_responsive_control('premium_elements_textarea_height',
   			[
   				'label' => __( 'Text Area', 'premium-addons-for-elementor' ),
   				'type' => Controls_Manager::SLIDER,
@@ -190,11 +187,10 @@ class Premium_Contactform extends Widget_Base {
         $this->start_controls_section('premium_wpcf7_button', 
             [
                 'label'     => __('Button', 'premium-addons-for-elementor'),
-            ]);
+            ]
+        );
         
-        /*Button Width*/
-        $this->add_responsive_control(
-  			'premium_elements_button_width',
+        $this->add_responsive_control('premium_elements_button_width',
   			[
   				'label' => __( 'Width', 'premium-addons-for-elementor' ),
   				'type' => Controls_Manager::SLIDER,
@@ -215,9 +211,8 @@ class Premium_Contactform extends Widget_Base {
   			]
   		);  
         
-        /*Button Height*/
-        $this->add_responsive_control(
-  			'premium_elements_button_height',
+        
+        $this->add_responsive_control('premium_elements_button_height',
   			[
   				'label' => __( 'Height', 'premium-addons-for-elementor' ),
   				'type' => Controls_Manager::SLIDER,
@@ -240,120 +235,107 @@ class Premium_Contactform extends Widget_Base {
         
         $this->end_controls_section();
                 
-                $this->start_controls_section(
-			'section_contact_form_styles',
+        $this->start_controls_section('section_contact_form_styles',
 			[
 				'label' => __( 'Form', 'premium-addons-for-elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE
 			]
 		);
-                $this->add_control(
-			'premium_elements_input_background',
+        
+        $this->add_control('premium_elements_input_background',
 			[
-				'label' => __( 'Input Field Background', 'premium-addons-for-elementor' ),
-				'type' => Controls_Manager::COLOR,
-				'selectors' => [
-					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea' => 'background: {{VALUE}};',
-				],
+				'label'         => __( 'Input Field Background', 'premium-addons-for-elementor' ),
+				'type'          => Controls_Manager::COLOR,
+				'selectors'     => [
+					'{{WRAPPER}} .premium-cf7-container input, {{WRAPPER}} .premium-cf7-container textarea' => 'background: {{VALUE}}',
+				]
 			]
 		);
                 
-                $this->add_responsive_control(
-			'premium_elements_input_padding',
+        $this->add_responsive_control('premium_elements_input_padding',
 			[
-				'label' => __( 'Padding', 'premium-addons-for-elementor' ),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [
-					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				'label'         => __( 'Padding', 'premium-addons-for-elementor' ),
+				'type'          => Controls_Manager::DIMENSIONS,
+				'size_units'    => [ 'px', 'em', '%' ],
+				'selectors'     => [
+					'{{WRAPPER}} .premium-cf7-container input, {{WRAPPER}} .premium-cf7-container textarea' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);            
                 
-                $this->add_group_control(
-			Group_Control_Border::get_type(),
+        $this->add_group_control(
+            Group_Control_Border::get_type(),
 			[
-				'name' => 'premium_elements_input_border',
-				'selector' => '{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea',
+				'name'          => 'premium_elements_input_border',
+				'selector'      => '{{WRAPPER}} .premium-cf7-container input, {{WRAPPER}} .premium-cf7-container textarea',
 			]
 		);
                 
-                                $this->add_responsive_control(
-			'premium_elements_input_border_radius',
+        $this->add_responsive_control('premium_elements_input_border_radius',
 			[
 				'label' => __( 'Border Radius', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors' => [
-					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-cf7-container input, {{WRAPPER}} .premium-cf7-container textarea' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 
-                                $this->add_responsive_control(
-			'premium_elements_input_margin',
+        $this->add_responsive_control('premium_elements_input_margin',
 			[
 				'label' => __( 'Margin', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'selectors' => [
-					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .premium-cf7-container input, {{WRAPPER}} .premium-cf7-container textarea' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 		
-		$this->add_control(
-			'premium_elements_input_focus',
+		$this->add_control('premium_elements_input_focus',
 			[
 				'label' => __( 'Focus Border Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text:focus, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea:focus' => 'border-color: {{VALUE}};',
+					'{{WRAPPER}} .premium-cf7-container input.wpcf7-text:focus, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea:focus , {{WRAPPER}} .premium-cf7-container .wpcf7-file:focus' => 'border-color: {{VALUE}};',
 				],
 			]
 		);
                 
-                $this->add_control(
-			'premium_elements_input_focus_border_animation',
+        $this->add_control('premium_elements_input_focus_border_animation',
 			[
-				'label' => __( 'Focus Border Animation', 'premium-addons-for-elementor' ),
-				'type'	=> Controls_Manager::SELECT,
-                            'options'		=> array(
-					'premium_border_animation1'		=> 'On',
-					'premium_border_animation2'		=> 'Off',
-				),
-            'default'       => 'premium_border_animation2',
+				'label'         => __( 'Focus Border Animation', 'premium-addons-for-elementor' ),
+				'type'          => Controls_Manager::SWITCHER,
+                'prefix_class'  => 'premium-contact-form-anim-'
 			]
 		);
                 		
-                $this->add_control(
-			'premium_elements_input_focus_border_color',
+        $this->add_control('premium_elements_input_focus_border_color',
 			[
-				'label' => __( 'Focus Line Color', 'premium-addons-for-elementor' ),
-				'type' => Controls_Manager::COLOR,
-            'condition'		=> [
-					'premium_elements_input_focus_border_animation' => 'premium_border_animation1'
+				'label'         => __( 'Focus Line Color', 'premium-addons-for-elementor' ),
+				'type'          => Controls_Manager::COLOR,
+                'condition'		=> [
+					'premium_elements_input_focus_border_animation' => 'yes'
 				],
 				'selectors' => [
-					'{{WRAPPER}} .premium_border_animation1 .wpcf7-span.is-focused::after' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}}.premium-contact-form-anim-yes .wpcf7-span.is-focused::after' => 'background-color: {{VALUE}};',
 				],
 			]
 		);
                 
-                $this->add_group_control(
+        $this->add_group_control(
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name' => 'input_button_shadow',
-				'selector' => '{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea',
+				'selector' => '{{WRAPPER}} .premium-cf7-container input.wpcf7-text, {{WRAPPER}} .premium-cf7-container textarea.wpcf7-textarea, {{WRAPPER}} .premium-cf7-container .wpcf7-file',
 			]
 		);
-                
-                
-                $this->end_controls_section();
+     
+        $this->end_controls_section();
 		  
 		
-		$this->start_controls_section(
-			'section_contact_form_typography',
+		$this->start_controls_section('section_contact_form_typography',
 			[
 				'label' => __( 'Labels', 'premium-addons-for-elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE
@@ -361,20 +343,18 @@ class Premium_Contactform extends Widget_Base {
 		);
 		
                 
-        		$this->add_control(
-			'premium_elements_heading_default',
+        $this->add_control('premium_elements_heading_default',
 			[
 				'type' => Controls_Manager::HEADING,
 				'label' => __( 'Default Typography', 'premium-addons-for-elementor' ),
 			]
 		);
 		
-		$this->add_control(
-			'premium_elements_contact_form_color',
+		$this->add_control('premium_elements_contact_form_color',
 			[
 				'label' => __( 'Default Font Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
-            'scheme' => [
+                'scheme' => [
 					'type' => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
 				],
@@ -393,21 +373,19 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
         
-      $this->add_control(
-			'premium_elements_heading_input',
+      $this->add_control('premium_elements_heading_input',
 			[
 				'type' => Controls_Manager::HEADING,
 				'label' => __( 'Input Typography', 'premium-addons-for-elementor' ),
-            'separator' => 'before',
+                'separator' => 'before',
 			]
 		);
 		
-		$this->add_control(
-			'premium_elements_contact_form_field_color',
+		$this->add_control('premium_elements_contact_form_field_color',
 			[
 				'label' => __( 'Input Text Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
-            'scheme' => [
+                'scheme' => [
 					'type' => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
 				],
@@ -417,7 +395,7 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
         
-        		$this->add_group_control(
+        $this->add_group_control(
 			Group_Control_Typography::get_type(),
 			[
 				'name' => 'premium_elements_contact_form_field_typography',
@@ -427,8 +405,7 @@ class Premium_Contactform extends Widget_Base {
 		);
         
 		
-		$this->add_control(
-			'premium_elements_contact_form_placeholder_color',
+		$this->add_control('premium_elements_contact_form_placeholder_color',
 			[
 				'label' => __( 'Placeholder Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
@@ -443,8 +420,7 @@ class Premium_Contactform extends Widget_Base {
 		
 		$this->end_controls_section();
                          
-                $this->start_controls_section(
-			'section_contact_form_submit_button_styles',
+        $this->start_controls_section('section_contact_form_submit_button_styles',
 			[
 				'label' => __( 'Button', 'premium-addons-for-elementor' ),
 				'tab' => Controls_Manager::TAB_STYLE
@@ -460,8 +436,7 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 		
-		$this->add_responsive_control(
-			'section_title_premium_btn_padding',
+		$this->add_responsive_control('section_title_premium_btn_padding',
 			[
 				'label' => __( 'Padding', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::DIMENSIONS,
@@ -478,8 +453,7 @@ class Premium_Contactform extends Widget_Base {
 
 		$this->start_controls_tab( 'normal', [ 'label' => __( 'Normal', 'premium-addons-for-elementor' ) ] );
 
-		$this->add_control(
-			'premium_elements_button_text_color',
+		$this->add_control('premium_elements_button_text_color',
 			[
 				'label' => __( 'Text Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
@@ -489,14 +463,11 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 		
-
-		
-		$this->add_control(
-			'premium_elements_button_background_color',
+		$this->add_control('premium_elements_button_background_color',
 			[
 				'label' => __( 'Background Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
-            'scheme' => [
+                'scheme' => [
 					'type' => Scheme_Color::get_type(),
 					'value' => Scheme_Color::COLOR_1,
 				],
@@ -514,8 +485,7 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 		
-		$this->add_responsive_control(
-			'premium_elements_btn_border_radius',
+		$this->add_responsive_control('premium_elements_btn_border_radius',
 			[
 				'label' => __( 'Border Radius', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::SLIDER,
@@ -530,14 +500,15 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 		
-
-		
 		$this->end_controls_tab();
 
-		$this->start_controls_tab( 'premium_elements_hover', [ 'label' => __( 'Hover', 'premium-addons-for-elementor' ) ] );
+		$this->start_controls_tab('premium_elements_hover',
+            [
+                'label' => __( 'Hover', 'premium-addons-for-elementor' )
+            ]
+        );
 
-		$this->add_control(
-			'premium_elements_button_hover_text_color',
+		$this->add_control('premium_elements_button_hover_text_color',
 			[
 				'label' => __( 'Text Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
@@ -547,8 +518,7 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'premium_elements_button_hover_background_color',
+		$this->add_control('premium_elements_button_hover_background_color',
 			[
 				'label' => __( 'Background Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
@@ -558,8 +528,7 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 
-		$this->add_control(
-			'premium_elements_button_hover_border_color',
+		$this->add_control('premium_elements_button_hover_border_color',
 			[
 				'label' => __( 'Border Color', 'premium-addons-for-elementor' ),
 				'type' => Controls_Manager::COLOR,
@@ -582,36 +551,35 @@ class Premium_Contactform extends Widget_Base {
 			]
 		);
 		
-		
 		$this->end_controls_section();
         
                 
-        }
+    }
         
-        protected function premium_contact_form( ) {
+    protected function get_wpcf_forms() {
 
-		if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
-			return array();
-		}
+        if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
+            return array();
+        }
 
-		$forms = \WPCF7_ContactForm::find( array(
-			'orderby' => 'title',
-			'order'   => 'ASC',
-		) );
+        $forms = \WPCF7_ContactForm::find( array(
+            'orderby' => 'title',
+            'order'   => 'ASC',
+        ) );
 
-		if ( empty( $forms ) ) {
-			return array();
-		}
+        if ( empty( $forms ) ) {
+            return array();
+        }
 
-		$result = array();
+        $result = array();
 
-		foreach ( $forms as $item ) {
-			$key            = sprintf( '%1$s::%2$s', $item->id(), $item->title() );
-			$result[ $key ] = $item->title();
-		}
+        foreach ( $forms as $item ) {
+            $key            = sprintf( '%1$s::%2$s', $item->id(), $item->title() );
+            $result[ $key ] = $item->title();
+        }
 
-		return $result;
-	}
+        return $result;
+    }
     
     protected function render() {
 
@@ -619,18 +587,13 @@ class Premium_Contactform extends Widget_Base {
 
 		if ( ! empty( $settings['premium_wpcf7_form'] ) ) { 
 		
-			$this->add_render_attribute( 'container', 'class',
-                [
-					'premium-cf7-container',
-					$settings['premium_elements_input_focus_border_animation']
-				]
-			);
+			$this->add_render_attribute( 'container', 'class', 'premium-cf7-container' );
 			
 		?>
 
-        <div <?php echo $this->get_render_attribute_string( 'container' ); ?>>
-			<?php echo do_shortcode( '[contact-form-7 id="' . $settings['premium_wpcf7_form'] . '" ]' );?>
-        </div>
+            <div <?php echo $this->get_render_attribute_string( 'container' ); ?>>
+    			<?php echo do_shortcode( '[contact-form-7 id="' . $settings['premium_wpcf7_form'] . '" ]' ); ?>
+            </div>
         
 		<?php
 		}

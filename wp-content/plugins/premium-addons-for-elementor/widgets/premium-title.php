@@ -119,6 +119,8 @@ class Premium_Title extends Widget_Base {
                     'h4'    => 'H4',
                     'h5'    => 'H5',
                     'h6'    => 'H6',
+                    'div'   => 'div',
+                    'span'  => 'span',
                 ],
             ]
         );
@@ -646,8 +648,6 @@ class Premium_Title extends Widget_Base {
             var titleTag = settings.premium_title_tag,
         
             selectedStyle = settings.premium_title_style,
-            
-            titleTag = settings.premium_title_tag,
             
             titleIcon = settings.premium_title_icon,
             

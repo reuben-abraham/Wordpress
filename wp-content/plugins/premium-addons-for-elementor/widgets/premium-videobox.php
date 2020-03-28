@@ -87,7 +87,7 @@ class Premium_Videobox extends Widget_Base {
                 'options'       => [
                     'id'    => __('ID', 'premium-addons-for-elementor'),
                     'embed' => __('Embed URL', 'premium-addons-for-elementor'),
-                    ],
+                ],
                 'condition'     => [
                     'premium_video_box_video_type!' => 'self',
                 ]
@@ -99,7 +99,6 @@ class Premium_Videobox extends Widget_Base {
                 'label'         => __('Video ID', 'premium-addons-for-elementor'),
                 'description'   => __('Enter the numbers and letters after the equal sign which located in your YouTube video link or after the slash sign in your Vimeo video link. For example, z1hQgVpfTKU', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::HIDDEN,
-                'dynamic'       => [ 'active' => true ],
                 'condition'     => [
                     'premium_video_box_video_type!' => 'self',
                     'premium_video_box_video_id_embed_selection' => 'id',
@@ -112,7 +111,6 @@ class Premium_Videobox extends Widget_Base {
                 'label'         => __('Embed URL', 'premium-addons-for-elementor'),
                 'description'   => __('Enter your YouTube/Vimeo video link. For example, https://www.youtube.com/embed/z1hQgVpfTKU', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::HIDDEN,
-                'dynamic'       => [ 'active' => true ],
                 'condition'     => [
                     'premium_video_box_video_type!' => 'self',
                     'premium_video_box_video_id_embed_selection' => 'embed',
@@ -192,11 +190,19 @@ class Premium_Videobox extends Widget_Base {
             [
                 'label'         => __('Autoplay', 'premium-addons-for-elementor'),
                 'type'          => Controls_Manager::SWITCHER,
-                'condition'   => [
-                    'premium_video_box_video_type' => 'self'
-                ]
             ]
         );
+        
+        $this->add_control('autoplay_notice',
+			[
+				'raw'           => __( 'Please note that autoplay option works only when Overlay option is disabled', 'premium-addons-for-elementor' ),
+                'type'          => Controls_Manager::RAW_HTML,
+                'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
+                'condition'     => [
+                    'premium_video_box_self_autoplay'   => 'yes'
+                ]    
+			]
+		);
         
         $this->add_control('premium_video_box_loop',
             [
@@ -206,22 +212,24 @@ class Premium_Videobox extends Widget_Base {
         );
         
         $this->add_control('premium_video_box_start',
-				[
-					'label'       => __( 'Start Time', 'premium-addons-for-elementor' ),
-					'type'        => Controls_Manager::NUMBER,
-					'description' => __( 'Specify a start time (in seconds)', 'premium-addons-for-elementor' ),
-                    'condition'   => [
-						'premium_video_box_video_type!' => 'vimeo'
-					]
-				]
-			);
+            [
+                'label'     => __( 'Start Time', 'premium-addons-for-elementor' ),
+                'type'      => Controls_Manager::NUMBER,
+                'separator' => 'before',
+                'description'=> __( 'Specify a start time (in seconds)', 'premium-addons-for-elementor' ),
+                'condition'  => [
+                    'premium_video_box_video_type!' => 'vimeo'
+                ]
+            ]
+        );
 
         $this->add_control('premium_video_box_end',
             [
-                'label'       => __( 'End Time', 'premium-addons-for-elementor' ),
-                'type'        => Controls_Manager::NUMBER,
-                'description' => __( 'Specify an end time (in seconds)', 'premium-addons-for-elementor' ),
-                'condition'   => [
+                'label'         => __( 'End Time', 'premium-addons-for-elementor' ),
+                'type'          => Controls_Manager::NUMBER,
+                'description'   => __( 'Specify an end time (in seconds)', 'premium-addons-for-elementor' ),
+                'separator'     => 'after',
+                'condition'     => [
                     'premium_video_box_video_type!' => 'vimeo'
                 ]
             ]
@@ -240,6 +248,59 @@ class Premium_Videobox extends Widget_Base {
                 ]
             ]
         );
+        
+        $this->add_control('vimeo_controls_color',
+            [
+                'label'     => __( 'Controls Color', 'premium-addons-for-elementor' ),
+                'type'      => Controls_Manager::COLOR,
+                'selectors' => array(
+                    '{{WRAPPER}} .premium-video-box-vimeo-title a, {{WRAPPER}} .premium-video-box-vimeo-byline a, {{WRAPPER}} .premium-video-box-vimeo-title a:hover, {{WRAPPER}} .premium-video-box-vimeo-byline a:hover, {{WRAPPER}} .premium-video-box-vimeo-title a:focus, {{WRAPPER}} .premium-video-box-vimeo-byline a:focus' => 'color: {{VALUE}}',
+                ),
+                'render_type'=> 'template',
+                'condition' => [
+                    'premium_video_box_video_type' => 'vimeo',
+                ],
+            ]
+        );
+        
+        $this->add_control('vimeo_title',
+			[
+				'label' => __( 'Intro Title', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', 'elementor' ),
+				'label_off' => __( 'Hide', 'elementor' ),
+				'default' => 'yes',
+				'condition' => [
+					'premium_video_box_video_type' => 'vimeo',
+				],
+			]
+		);
+
+		$this->add_control('vimeo_portrait',
+			[
+				'label' => __( 'Intro Portrait', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', 'elementor' ),
+				'label_off' => __( 'Hide', 'elementor' ),
+				'default' => 'yes',
+				'condition' => [
+					'premium_video_box_video_type' => 'vimeo',
+				],
+			]
+		);
+
+		$this->add_control('vimeo_byline',
+			[
+				'label' => __( 'Intro Byline', 'elementor' ),
+				'type' => Controls_Manager::SWITCHER,
+                'label_on' => __( 'Show', 'elementor' ),
+				'label_off' => __( 'Hide', 'elementor' ),
+				'default' => 'yes',
+				'condition' => [
+					'premium_video_box_video_type' => 'vimeo',
+				],
+			]
+		);
 
         $this->add_control('aspect_ratio',
             [
@@ -654,7 +715,7 @@ class Premium_Videobox extends Widget_Base {
             [
                 'label'         => __('Shadow','premium-addons-for-elementor'),
                 'name'          => 'premium_text_shadow',
-                'selector'      => '.premium-video-box-text'
+                'selector'      => '{{WRAPPER}} .premium-video-box-text'
             ]
         );
         
@@ -693,6 +754,8 @@ class Premium_Videobox extends Widget_Base {
         
         $related = $settings['premium_video_box_suggested_videos'];
         
+        $autoplay = $settings['premium_video_box_self_autoplay'];
+        
         $mute = $settings['premium_video_box_mute'];
         
         $loop = $settings['premium_video_box_loop'];
@@ -707,6 +770,29 @@ class Premium_Videobox extends Widget_Base {
         $options .= 'yes' === $loop ? '1' : '0';
         $options .= '&controls=';
         $options .= 'yes' === $controls ? '1' : '0';
+        
+        if( 'self' !== $video_type ) {
+            if ( 'yes' === $autoplay && ! $this->has_image_overlay() ) {
+                $options .= '&autoplay=1';
+            }
+        }
+        
+        if( 'vimeo' === $video_type ) {
+            $options .= '&color=' . str_replace('#', '', $settings['vimeo_controls_color'] );
+            
+            if( 'yes' === $settings['vimeo_title'] ) {
+                $options .= '&title=1';
+            }
+            
+            if( 'yes' === $settings['vimeo_portrait'] ) {
+                $options .= '&portrait=1';
+            }
+            
+            if( 'yes' === $settings['vimeo_byline'] ) {
+                $options .= '&byline=1';
+            }
+            
+        }
         
         if ( $settings['premium_video_box_start'] || $settings['premium_video_box_end'] ) {
             
@@ -743,8 +829,6 @@ class Premium_Videobox extends Widget_Base {
         if( 'self' === $video_type ) {
             
             $video_params = '';
-            
-            $autoplay = $settings['premium_video_box_self_autoplay'];
             
             if( $controls ) {
                 $video_params .= 'controls ';
@@ -787,6 +871,7 @@ class Premium_Videobox extends Widget_Base {
     ?>
 
     <div <?php echo $this->get_render_attribute_string('container'); ?>>
+        <?php $this->get_vimeo_header( $params['id'] ); ?>
         <div <?php echo $this->get_render_attribute_string('video_container'); ?>>
             <?php if ( 'self' === $video_type ) : ?>
                 <video src="<?php echo esc_url( $hosted_url ); ?>" <?php echo $video_params; ?>></video>
@@ -794,7 +879,8 @@ class Premium_Videobox extends Widget_Base {
         </div>
             <div class="premium-video-box-image-container" style="background-image: <?php echo $image; ?>;">
         </div>
-        <?php if( $settings['premium_video_box_play_icon_switcher'] == 'yes' ) : ?>
+        
+        <?php if( 'yes' === $settings['premium_video_box_play_icon_switcher'] && 'yes' !== $autoplay ) : ?>
             <div class="premium-video-box-play-icon-container">
                 <i class="premium-video-box-play-icon fa fa-play fa-lg"></i>
             </div>
@@ -877,6 +963,52 @@ class Premium_Videobox extends Widget_Base {
             'link' => $link,
             'id'    => $id
         ];
+        
+    }
+    
+    private function get_vimeo_header( $id ) {
+        
+        $settings = $this->get_settings_for_display();
+        
+        if( 'vimeo' !== $settings['premium_video_box_video_type'] ) {
+            return;
+        }
+        
+        if ( 'yes' === $settings['vimeo_portrait'] || 'yes' === $settings['vimeo_title'] || 'yes' === $settings['vimeo_byline']
+		) {
+            $vimeo_data = Helper_Functions::get_vimeo_video_data( $id );
+        ?>
+		<div class="premium-video-box-vimeo-wrap">
+			<?php if ( 'yes' === $settings['vimeo_portrait'] ) { ?>
+			<div class="premium-video-box-vimeo-portrait">
+				<a href="<?php echo $vimeo_data['url']; ?>" target="_blank"><img src="<?php echo $vimeo_data['portrait']; ?>" alt=""></a>
+			</div>
+			<?php } ?>
+			<?php
+			if ( 'yes' === $settings['vimeo_title'] || 'yes' === $settings['vimeo_byline'] ) { ?>
+			<div class="premium-video-box-vimeo-headers">
+				<?php if ( 'yes' === $settings['vimeo_title'] ) { ?>
+				<div class="premium-video-box-vimeo-title">
+					<a href="<?php echo $settings['premium_video_box_link']; ?>" target="_blank"><?php echo $vimeo_data['title']; ?></a>
+				</div>
+				<?php } ?>
+				<?php if ( 'yes' === $settings['vimeo_byline'] ) { ?>
+				<div class="premium-video-box-vimeo-byline">
+					<?php _e( 'from ', 'premium-addons-for-elementor' ); ?> <a href="<?php echo $vimeo_data['url']; ?>" target="_blank"><?php echo $vimeo_data['user']; ?></a>
+				</div>
+				<?php } ?>
+			</div>
+			<?php } ?>
+		</div>
+		<?php } ?>
+        <?php
+    }
+    
+    private function has_image_overlay() {
+        
+        $settings = $this->get_settings_for_display();
+
+		return ! empty( $settings['premium_video_box_image']['url'] ) && 'yes' === $settings['premium_video_box_image_switcher'];
         
     }
     

@@ -619,7 +619,7 @@ class Premium_Counter extends Widget_Base {
 				'data-duration' 	=> $settings['premium_counter_speed'] * 1000,
 				'data-from-value' 	=> $settings['premium_counter_start_value'],
 				'data-to-value' 	=> $settings['premium_counter_end_value'],
-                'data-delimiter'	=>  empty( $settings['premium_counter_t_separator'] ) ? ',' : $settings['premium_counter_t_separator'],
+                'data-delimiter'	=> $settings['premium_counter_t_separator'],
                 'data-rounding' 	=> empty ( $settings['premium_counter_d_after'] ) ? 0  : $settings['premium_counter_d_after']
             ]
         );
@@ -665,7 +665,7 @@ class Premium_Counter extends Widget_Base {
 
             left = 'left' === center ? ' left' : '';
 
-            var delimiter = '' === settings.premium_counter_t_separator ? ',' : settings.premium_counter_t_separator,
+            var delimiter = settings.premium_counter_t_separator,
                 round     = '' === settings.premium_counter_d_after ? 0 : settings.premium_counter_d_after;
             
             view.addRenderAttribute( 'counter', 'class', [ 'premium-counter', 'premium-counter-area' + center ] );
