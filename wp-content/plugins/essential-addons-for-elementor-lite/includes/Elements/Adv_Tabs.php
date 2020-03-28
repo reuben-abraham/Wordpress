@@ -26,17 +26,39 @@ class Adv_Tabs extends Widget_Base
 
     public function get_title()
     {
-        return esc_html__('EA Advanced Tabs', 'essential-addons-for-elementor-lite');
+        return esc_html__('Advanced Tabs', 'essential-addons-for-elementor-lite');
     }
 
     public function get_icon()
     {
-        return 'eicon-tabs';
+        return 'eaicon-advanced-tabs';
     }
 
     public function get_categories()
     {
         return ['essential-addons-elementor'];
+    }
+
+    public function get_keywords()
+    {
+        return [
+            'tab',
+            'tabs',
+            'ea tabs',
+            'ea advanced tabs',
+            'panel',
+            'navigation',
+            'group',
+            'tabs content',
+            'product tabs',
+            'ea',
+            'essential addons'
+        ];
+    }
+
+    public function get_custom_help_url()
+    {
+        return 'https://essential-addons.com/elementor/docs/advanced-tabs/';
     }
 
     protected function _register_controls()
@@ -275,6 +297,7 @@ class Adv_Tabs extends Widget_Base
                 'selector' => '{{WRAPPER}} .eael-advance-tabs',
             ]
         );
+
         $this->add_responsive_control(
             'eael_adv_tabs_border_radius',
             [
@@ -286,6 +309,7 @@ class Adv_Tabs extends Widget_Base
                 ],
             ]
         );
+
         $this->add_group_control(
             Group_Control_Box_Shadow::get_type(),
             [

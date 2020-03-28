@@ -1,14 +1,14 @@
 === Essential Addons for Elementor ===
-Contributors: wpdevteam, Codetic, re_enter_rupok, Asif2BD, priyomukul, mahfuz01, nazsabuz
+Contributors: wpdevteam, Codetic, re_enter_rupok, Asif2BD, priyomukul, mahfuz01, nazsabuz, manzurahammed
 Tags: elementor, elements, addons, elementor addon, elementor widget, page builder, builder, visual editor, wordpress page builder, elementor form
 Requires at least: 4.0
 Tested up to: 5.3
 Requires PHP: 5.4
-Stable tag: 3.7.2
+Stable tag: 3.9.1
 License: GPLv3
 License URI: https://opensource.org/licenses/GPL-3.0
 
-Ultimate elements library for Elementor WordPress Page Builder. 54+ Premium elements with endless customization options.
+The Essential plugin you install after Elementor! 65+ Premium elements, including WooCommerce, Event Calender, Data Table, Post Grid. Your ultimate elements library. 
 
 == Description ==
 
@@ -18,8 +18,12 @@ Enhance your [Elementor](https://wordpress.org/plugins/elementor/) page building
 [Check the Demos](https://essential-addons.com/elementor/)
 
 
-### 100+ Ready Blocks
+### 100+ Ready Blocks and Templates through **Templately**
 Use pre-made templates and sections which comes with Essential Addons and design your website to stand out from the crowd.
+
+[Install Templately to get the premade blocks and templates](https://wordpress.org/plugins/templately/)
+
+[Templately](https://templately.com/) also offers saving your templates to cloud. Save all your designs with Templately & deploy in hundreds of websites with 1-click. Increase productivity and power up your whole team to build websites faster than ever before. 
 
 ### Completely Customizable
 Each element comes with bunch of options to control every possible things. You can achieve nearly any design with your imagination.
@@ -36,9 +40,9 @@ We have extra-ordinary support team ready to help you. Ask your questions in the
 ### [Elementor](https://wordpress.org/plugins/elementor/) page builder is required for this plugin.
 
 
-### 35+ FREE WIDGETS AND COUNTING
+### 37+ FREE WIDGETS AND COUNTING
 
-We have designed 35 of the most useful widgets to enhance your Elementor Page Building experience and allow you to climb the top of your design capabilities.
+We have designed 37 of the most useful widgets to enhance your Elementor Page Building experience and allow you to climb the top of your design capabilities.
 
 1. [Post Grid](https://essential-addons.com/elementor/post-grid/) - Showcase your blog posts in 4 unique styles 
 2. [Post Timeline](https://essential-addons.com/elementor/post-timeline/) - Create stunning timeline for your Posts, Pages or any Custom Post. 
@@ -76,6 +80,7 @@ We have designed 35 of the most useful widgets to enhance your Elementor Page Bu
 34. [BetterDocs Category Box](https://essential-addons.com/elementor/betterdocs-category-box/) - Cretae custom box-style Knowledge Base layout with BetterDocs Category List.
 35. [BetterDocs Search Form](https://essential-addons.com/elementor/betterdocs-search-form/) - Place and design a cool live search box for BetterDocs Documentation
 36. [Advanced Data Table](https://essential-addons.com/elementor/advanced-data-table) - Create flexible table within Elementor with best possible freedon
+37. [Event Calendar](https://essential-addons.com/elementor/event-calendar) - Create your own customized Event page by custom events, Google Calendar events and many more third party plugin integrations. 
 
 
 ### More elements (29+) on [Premium Version](https://wpdeveloper.net/in/upgrade-essential-addons-elementor)
@@ -114,6 +119,7 @@ Extensions (Free):
 
 1. [Reading Progress Bar](https://essential-addons.com/elementor/reading-progress/) - Add a reading progress bar to your page/post to indicate the current reading position.
 2. [Page/Post Duplicator](https://essential-addons.com/elementor/post-duplicator/) - Duplicate any page or post in a single click.
+3. [Table of Content](https://essential-addons.com/elementor/table-of-content/) - Display Table of Content automatically on any page, post or custom post type. You can control globally. 
 
 Extensions (Pro): 
 
@@ -178,6 +184,61 @@ Your existing elements/content will work with premium version. So you won't lose
 
 
 == Changelog ==
+
+= 3.9.1 - 25/03/2020 =
+- Improved Elements Keywords for better searchability
+
+= 3.9.0 - 25/03/2020 =
+- Updated: All widgets icon in elementor panel for better UI
+- Updated: Removed "EA" from all widgets name, you will see the "EA" icon instead
+- Added: Helper link in each widget sidebar for easy access to documentation
+- Added: WPML translation support for URL in Team Member
+- Added: <span> as tag support in Tooltip
+- Added: Option to change heading tag in CTA
+- Fixed: Expansion indicator disappearence bug in Post Grid
+- Fixed: Polish letters displaying bug for Filterable Gallery
+- Few minor bugfix and improvements
+
+= 3.8.5 - 15/03/2020 =
+- Improved : Advanced Data Table structure
+- Few minor bugfix and improvements
+
+= 3.8.4 - 12/03/2020 =
+- Added : [Ninja Tables](https://wordpress.org/plugins/ninja-tables/) integration with [EA Advanced Data Table](https://essential-addons.com/elementor/advanced-data-table/) element
+- Added : Progressbar dynamic value
+- Fixed : WooCommerce compatibility issue
+- Few minor bugfix and improvements
+
+= 3.8.3 - 03/03/2020 =
+- Added : CTA box spacing control
+- Improvement : EA CTA > Add option to change heading tag
+- Fixed : Post Grid issue
+- Fixed : EA Post Carousel & EA Post Timeline > are not showing excerpt
+- Fixed : EA Post Grid | Expansion indicator disappearing issue
+- Few minor bugfix and improvements
+
+= 3.8.2 - 01/03/2020 =
+- Added: [The Events Calendar](https://wordpress.org/plugins/the-events-calendar/) integration with [EA Event Calendar](https://essential-addons.com/elementor/event-calendar) element
+- Fixed : Post Grid warning
+- Fixed : Mailchimp button issue
+- Few minor bugfix and improvements
+
+= 3.8.1 - 24/02/2020 =
+- Added: Post Grid grid layout
+- Added: EA Pricing Table button show/hide option
+- Improvement: EA Gravity Form styling elements.
+- Fixed: EA Contact Form 7 issue with checkbox style
+- Fixed: EA Sticky Video issue with video bar in Astra theme
+- Fixed: Twitter Feed link redirect to 404
+- Fixed: Advanced Tabs support for EA Image Comparison Widget
+
+= 3.8.0 - 16/02/2020 =
+- Added: Table of Content global extension
+- Added: Event Calendar element
+- Fixed: Filterable Gallery | magnific popup background goes to top when closed
+- Fixed: Post Timeline | Overlay show hide with color choose option
+- Fixed: Gravity Forms | Thank you message color issue
+- Few minor bugfix and improvements
 
 = 3.7.2 - 23/01/2020 =
 - Fixed: Admin notice comes after clicking on "Never show again"

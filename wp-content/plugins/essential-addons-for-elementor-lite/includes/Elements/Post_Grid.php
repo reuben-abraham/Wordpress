@@ -25,17 +25,41 @@ class Post_Grid extends Widget_Base
 
     public function get_title()
     {
-        return __('EA Post Grid', 'essential-addons-for-elementor-lite');
+        return __('Post Grid', 'essential-addons-for-elementor-lite');
     }
 
     public function get_icon()
     {
-        return 'eicon-posts-grid';
+        return 'eaicon-post-grid';
     }
 
     public function get_categories()
     {
         return ['essential-addons-elementor'];
+    }
+    
+    public function get_keywords() {
+        return [
+            'post',
+            'posts',
+            'grid',
+            'ea post grid',
+            'ea posts grid',
+            'blog post',
+            'article',
+            'custom posts',
+            'masonry',
+            'content views',
+            'blog view',
+            'content marketing',
+            'blogger',
+            'ea',
+            'essential addons'
+        ];
+    }
+
+    public function get_custom_help_url() {
+        return 'https://essential-addons.com/elementor/docs/post-grid/';
     }
 
     protected function _register_controls()
@@ -252,20 +276,20 @@ class Post_Grid extends Widget_Base
         );
 
         $this->add_control(
-			'content_height',
-			[
-				'label' => esc_html__( 'Content Height', 'essential-addons-for-elementor-lite'),
-				'type' => Controls_Manager::SLIDER,
-				'size_units'	=> ['px', '%', 'em'],
-				'range' => [
-					'px' => [ 'max' => 300 ],
-					'%'	=> [ 'max'	=> 100 ]
-				],
-				'selectors' => [
-					'{{WRAPPER}} .eael-grid-post-holder .eael-entry-wrapper' => 'height: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
+            'content_height',
+            [
+                'label' => esc_html__('Content Height', 'essential-addons-for-elementor-lite'),
+                'type' => Controls_Manager::SLIDER,
+                'size_units' => ['px', '%', 'em'],
+                'range' => [
+                    'px' => ['max' => 300],
+                    '%' => ['max' => 100],
+                ],
+                'selectors' => [
+                    '{{WRAPPER}} .eael-grid-post-holder .eael-entry-wrapper' => 'height: {{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
 
         $this->add_control(
             'eael_post_grid_meta_style',
@@ -418,7 +442,7 @@ class Post_Grid extends Widget_Base
                 ],
                 'selectors' => [
                     '{{WRAPPER}} .eael-grid-post .eael-entry-overlay > i' => 'font-size: {{SIZE}}{{UNIT}};',
-                    '{{WRAPPER}} .eael-grid-post .eael-entry-overlay > img' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};'
+                    '{{WRAPPER}} .eael-grid-post .eael-entry-overlay > img' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
                 ],
             ]
         );
@@ -438,10 +462,11 @@ class Post_Grid extends Widget_Base
 
     protected function render()
     {
-        $settings = $this->get_settings_for_display();
+        $settings = $this->get_settings();
         $settings = $this->fix_old_query($settings);
         $args = $this->eael_get_query_args($settings);
-        $settings = [
+
+        $settings_arry = [
             'eael_show_image' => $settings['eael_show_image'],
             'image_size' => $settings['image_size'],
             'eael_show_title' => $settings['eael_show_title'],
@@ -454,11 +479,11 @@ class Post_Grid extends Widget_Base
             'eael_show_read_more_button' => $settings['eael_show_read_more_button'],
             'read_more_button_text' => $settings['read_more_button_text'],
             'read_more_button_text' => $settings['read_more_button_text'],
-            
-            'eael_post_grid_columns' => $settings['eael_post_grid_columns'],
             'show_load_more' => $settings['show_load_more'],
             'show_load_more_text' => $settings['show_load_more_text'],
-            'expanison_indicator'   => $settings['excerpt_expanison_indicator']
+            'excerpt_expanison_indicator' => $settings['excerpt_expanison_indicator'],
+            'layout_mode' => $settings['layout_mode'],
+            'orderby' => $settings['orderby'],
         ];
 
         $this->add_render_attribute(
@@ -467,51 +492,58 @@ class Post_Grid extends Widget_Base
                 'id' => 'eael-post-grid-' . esc_attr($this->get_id()),
                 'class' => [
                     'eael-post-grid-container',
-                    esc_attr($settings['eael_post_grid_columns']),
                 ],
             ]
         );
 
         echo '<div ' . $this->get_render_attribute_string('post_grid_wrapper') . '>
-            <div class="eael-post-grid eael-post-appender eael-post-appender-' . $this->get_id() . '">
-                ' . self::__render_template($args, $settings) . '
+            <div class="eael-post-grid eael-post-appender eael-post-appender-' . $this->get_id() . '" data-layout-mode="' . $settings["layout_mode"] . '">
+                ' . self::render_template_($args, $settings_arry) . '
             </div>
             <div class="clearfix"></div>
         </div>';
-		
-		if ('yes' == $settings['show_load_more']) {
-			if ($args['posts_per_page'] != '-1') {
-				echo '<div class="eael-load-more-button-wrap">
-					<button class="eael-load-more-button" id="eael-load-more-btn-' . $this->get_id() . '" data-widget="' . $this->get_id() . '" data-class="' . get_class($this) . '" data-args="' . http_build_query($args) . '" data-settings="' . http_build_query($settings) . '" data-layout="masonry" data-page="1">
+
+        if ('yes' == $settings['show_load_more']) {
+            if ($args['posts_per_page'] != '-1') {
+                echo '<div class="eael-load-more-button-wrap">
+					<button class="eael-load-more-button" id="eael-load-more-btn-' . $this->get_id() . '" data-widget="' . $this->get_id() . '" data-class="' . get_class($this) . '" data-args="' . http_build_query($args) . '" data-settings="' . http_build_query($settings_arry) . '" data-layout="masonry" data-page="1">
 						<div class="eael-btn-loader button__loader"></div>
 						<span>' . esc_html__($settings['show_load_more_text'], 'essential-addons-for-elementor-lite') . '</span>
 					</button>
 				</div>';
-			}
+            }
         }
-        
-        if (\Elementor\Plugin::instance()->editor->is_edit_mode()) {
-            echo '<script type="text/javascript">
-                jQuery(document).ready(function() {
-                    jQuery(".eael-post-grid").each(function() {
-                        var $scope = jQuery(".elementor-element-' . $this->get_id() . '");
 
-                        // init isotope
-                        var $gallery = jQuery(".eael-post-grid", $scope).isotope({
-                            itemSelector: ".eael-grid-post",
-                            masonry: {
-                                columnWidth: ".eael-post-grid-column",
-                                percentPosition: true
-                            }
-                        });
-                    
-                        // layout gal, while images are loading
-                        $gallery.imagesLoaded().progress(function() {
-                            $gallery.isotope("layout");
-                        });
+        if (\Elementor\Plugin::instance()->editor->is_edit_mode()) {?>
+            <script type="text/javascript">
+                jQuery(document).ready(function($) {
+                    jQuery(".eael-post-grid").each(function() {
+                        var $scope = jQuery(".elementor-element-<?php echo $this->get_id(); ?>"),
+                            $gallery = $(this);
+                            $layout_mode = $gallery.data('layout-mode');
+
+                        if($layout_mode === 'masonry') {
+                            // init isotope
+                            var $isotope_gallery = $gallery.isotope({
+                                    itemSelector: ".eael-grid-post",
+                                    layoutMode: $layout_mode,
+                                    percentPosition: true
+                                });
+
+                            // layout gal, while images are loading
+                            $isotope_gallery.imagesLoaded().progress(function() {
+                                $isotope_gallery.isotope("layout");
+                            });
+
+                            $('.eael-grid-post', $gallery).resize(function() {
+                                $isotope_gallery.isotope('layout');
+                            });
+                        }
+
                     });
                 });
-            </script>';
-        }
+            </script>
+            <?php
+}
     }
 }

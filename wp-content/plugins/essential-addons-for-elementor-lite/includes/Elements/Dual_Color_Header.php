@@ -20,16 +20,36 @@ class Dual_Color_Header extends Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'EA Dual Color Heading', 'essential-addons-for-elementor-lite');
+		return esc_html__( 'Dual Color Heading', 'essential-addons-for-elementor-lite');
 	}
 
 	public function get_icon() {
-		return 'eicon-animated-headline';
+		return 'eaicon-dual-color-heading';
 	}
 
-   public function get_categories() {
+   	public function get_categories() {
 		return [ 'essential-addons-elementor' ];
 	}
+    
+	public function get_keywords()
+	{
+        return [
+			'ea header',
+			'ea dual header',
+			'ea dual color header',
+			'heading',
+			'headline',
+			'title',
+			'animated heading',
+			'ea',
+			'essential addons'
+		];
+    }
+
+	public function get_custom_help_url()
+	{
+        return 'https://essential-addons.com/elementor/docs/dual-color-headline/';
+    }
 
 	protected function _register_controls() {
 

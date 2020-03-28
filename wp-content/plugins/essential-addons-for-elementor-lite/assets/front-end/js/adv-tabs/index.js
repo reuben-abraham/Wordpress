@@ -74,11 +74,11 @@ var AdvanceTabHandler = function($scope, $) {
         if($twitterfeedGallery.length) {
             $twitterfeedGallery.isotope("layout");
         }
-        
+
         if($filterGallery.length) {
             $filterGallery.isotope("layout");
         }
-        
+
         if($instaGallery.length) {
             $instaGallery.isotope("layout");
         }
@@ -88,6 +88,7 @@ var AdvanceTabHandler = function($scope, $) {
         });
     });
 };
+
 jQuery(window).on("elementor/frontend/init", function() {
     elementorFrontend.hooks.addAction(
         "frontend/element_ready/eael-adv-tabs.default",

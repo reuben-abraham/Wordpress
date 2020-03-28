@@ -21,17 +21,34 @@ class Image_Accordion extends Widget_Base
 
     public function get_title()
     {
-        return esc_html__('EA Image Accordion', 'essential-addons-for-elementor-lite');
+        return esc_html__('Image Accordion', 'essential-addons-for-elementor-lite');
     }
 
     public function get_icon()
     {
-        return 'eicon-call-to-action';
+        return 'eaicon-image-accrodion';
     }
 
     public function get_categories()
     {
         return ['essential-addons-elementor'];
+    }
+    
+    public function get_keywords() {
+        return [
+            'image',
+            'ea image accordion',
+            'image effect',
+            'hover effect',
+            'creative image',
+            'gallery',
+            'ea',
+            'essential addons'
+        ];
+    }
+
+    public function get_custom_help_url() {
+        return 'https://essential-addons.com/elementor/docs/image-accordion/';
     }
 
     protected function _register_controls()
@@ -325,7 +342,7 @@ class Image_Accordion extends Widget_Base
         if (!empty($settings['eael_img_accordions'])) {
             echo '<div ' . $this->get_render_attribute_string('eael-image-accordion') . ' id="eael-img-accordion-' . $this->get_id() . '">';
             foreach ($settings['eael_img_accordions'] as $img_accordion) {
-                $eael_accordion_link = $img_accordion['eael_accordion_title_link']['url'];
+                $eael_accordion_link = ('#' === $img_accordion['eael_accordion_title_link']['url']) ? '#/' : $img_accordion['eael_accordion_title_link']['url'];
                 $target = $img_accordion['eael_accordion_title_link']['is_external'] ? 'target="_blank"' : '';
                 $nofollow = $img_accordion['eael_accordion_title_link']['nofollow'] ? 'rel="nofollow"' : '';
 
@@ -341,7 +358,7 @@ class Image_Accordion extends Widget_Base
             echo '</div>';
 
             if ('on-hover' === $settings['eael_img_accordion_type']) {
-                echo '<style>
+                echo '<style typr="text/css">
                   #eael-img-accordion-' . $this->get_id() . ' a:hover {
                     flex: 3;
                   }
@@ -353,6 +370,7 @@ class Image_Accordion extends Widget_Base
                   }
                 </style>';
             }
+            
         }
     }
 }

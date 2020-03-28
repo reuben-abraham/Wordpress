@@ -56,27 +56,28 @@ trait Enqueue
         }
 
         // Load fontawesome as fallback
-        wp_register_style(
-            'font-awesome-5-all',
-            ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css',
-            false,
-            EAEL_PLUGIN_VERSION
-        );
+        if (defined('ELEMENTOR_ASSETS_URL')) {
+            wp_register_style(
+                'font-awesome-5-all',
+                ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/all.min.css',
+                false,
+                EAEL_PLUGIN_VERSION
+            );
 
-        wp_register_style(
-            'font-awesome-4-shim',
-            ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/v4-shims.min.css',
-            false,
-            EAEL_PLUGIN_VERSION
-        );
+            wp_register_style(
+                'font-awesome-4-shim',
+                ELEMENTOR_ASSETS_URL . 'lib/font-awesome/css/v4-shims.min.css',
+                false,
+                EAEL_PLUGIN_VERSION
+            );
 
-        wp_register_script(
-            'font-awesome-4-shim',
-            ELEMENTOR_ASSETS_URL . 'lib/font-awesome/js/v4-shims.min.js',
-            false,
-            EAEL_PLUGIN_VERSION
-        );
-
+            wp_register_script(
+                'font-awesome-4-shim',
+                ELEMENTOR_ASSETS_URL . 'lib/font-awesome/js/v4-shims.min.js',
+                false,
+                EAEL_PLUGIN_VERSION
+            );
+        }
 
         // admin bar css
         if (is_admin_bar_showing()) {
@@ -145,7 +146,7 @@ trait Enqueue
                 $post_type = (is_singular() || is_home() ? 'post' : 'term');
                 $elements = (array) get_metadata($post_type, $queried_object, 'eael_transient_elements', true);
 
-                if (empty($elements)) {
+                if (empty(array_filter($elements))) {
                     return;
                 }
 
@@ -160,6 +161,14 @@ trait Enqueue
         wp_enqueue_style(
             'eael-editor-css',
             $this->safe_protocol(EAEL_PLUGIN_URL . '/assets/admin/css/editor.css'),
+            false,
+            EAEL_PLUGIN_VERSION
+        );
+
+        // ea icon font
+        wp_enqueue_style(
+            'ea-icon',
+            $this->safe_protocol(EAEL_PLUGIN_URL . '/assets/admin/css/eaicon.css'),
             false,
             EAEL_PLUGIN_VERSION
         );
